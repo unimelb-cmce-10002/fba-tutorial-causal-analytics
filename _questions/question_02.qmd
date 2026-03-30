@@ -6,9 +6,9 @@ Before analysing the data, take a moment to think about *why* companies design c
 The fintech company could have simply launched the new sign-up process for everyone and watched how overall sign-ups changed.
 Instead, they decided to run an **A/B test**, randomly assigning users to the **Control** (old process) or **Test** (new process) version.
 
-(a) Why is it risky to compare completion rates before and after the new sign-up process without a test?  
+**(a)** Why is it risky to compare completion rates before and after the new sign-up process without a test?  
 
-(b) How does random assignment in an A/B test help us make a fair comparison?
+**(b)** How does random assignment in an A/B test help us make a fair comparison?
 
 
 <!-- BEGIN PROFILE:r-teaching-guide -->

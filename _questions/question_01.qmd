@@ -9,10 +9,13 @@ From a business perspective, this is a risky move: any new step in the customer 
 In marketing and product analytics, we often visualise this process as a **funnel** — a series of steps users move through on their way to a goal (for example, from *start* to *confirm*).  
 Each step represents a decision point where users can continue or abandon the process.
 
-(a) Why might the company have decided to test a new sign-up flow rather than simply launching it for everyone?  
-(b) What kinds of outcomes or trade-offs should the company be paying attention to?  
-(c) What can a funnel tell us about customer behaviour that a simple completion rate cannot?  
-(d) In this experiment, what would "success" look like from both the company’s and the customer’s perspective?
+**(a)** Why might the company have decided to test a new sign-up flow rather than simply launching it for everyone?  
+
+**(b)** What kinds of outcomes or trade-offs should the company be paying attention to?  
+
+**(c)** What can a funnel tell us about customer behaviour that a simple completion rate cannot?  
+
+**(d)** In this experiment, what would "success" look like from both the company’s and the customer’s perspective?
 
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
