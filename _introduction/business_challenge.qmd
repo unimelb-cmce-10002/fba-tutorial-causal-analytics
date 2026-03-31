@@ -1,18 +1,37 @@
 ## The Business Challenge
 
-A fast-growing **fintech company** has just completed an A/B test to evaluate a new sign-up process that existing users must complete before accessing a new **feature release** in their account dashboard.
+A fast-growing fintech company has just completed an A/B test to evaluate a new sign-up process that existing users must complete before accessing a new feature release in their account dashboard.
 The goal of the experiment was to introduce this new process without creating excessive friction or drop-off during sign-up.
 
 The company rolled out a **Test** variation of the sign-up flow, updating the layout and copy of key steps, while a **Control** group kept the original version.
 You've received detailed event-level data showing when each user started, moved through the funnel, and confirmed.
 The product team wants to know not only whether the Test increased completions, but *why* — and whether it created any new friction for users.
 
+::: {.callout-tip collapse='true'}
+### How do tech firms use analytics and experimentation?
+
+In modern tech firms, analysts are embedded within product teams and play a central role in decision-making. Their job is to evaluate changes to the user experience (UX) using data rather than intuition.
+
+Small design choices—such as layout, wording, or the number of steps—can meaningfully affect user behaviour at scale. To assess these changes, firms rely on A/B testing, comparing different versions of a feature on real users.
+
+Common metrics include:
+
+- Completion rates.
+- Drop-off at each step of a funnel.
+- Time to complete key actions.
+- Downstream engagement and retention.
+
+The stakes are commercial. Even modest improvements in conversion or retention can compound into large gains in revenue and growth.
+
+The analyst’s role is not just to determine whether a change worked, but to explain why, for whom, and with what trade-offs. This requires combining causal inference with careful behavioural analysis.
+:::
+
 ### Your Task
 
-1. **Quantify the effect** of the new variation on completion rates.  
-2. **Interpret the magnitude** of the improvement — is it large, small, or somewhere in between? 
-3. **Explore additional metrics** to understand user behaviour inside the sign up process.  
-4. **Prepare an executive summary** explaining whether the new sin should be rolled out to all customers.
+1. Quantify the effect of the new variation on completion rates.  
+2. Interpret the magnitude of the improvement — is it large, small, or somewhere in between? 
+3. Explore additional metrics to understand user behaviour inside the sign up process.  
+4. Prepare an executive summary explaining whether the new sign-up process should be rolled out to all customers.
 
 ### Loading R Packages
 
