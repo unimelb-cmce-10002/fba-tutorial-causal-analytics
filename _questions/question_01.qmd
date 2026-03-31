@@ -1,12 +1,12 @@
 <!-- question-type: prepare -->
 ### Exercise 1: Understanding the Business Context
 
-Before we start analysing the data, take a step back and think about the business motivation behind this experiment.
+Before we start analysing the data, take a step back and think about the business motivation behind this experiment. This exercise introduces how product teams think about causal effects in real-world settings.
 
-The company has introduced a new personalised insights dashboard — but to use it, existing customers need to go through an additional sign-up process.  
+The company has introduced a new personalised insights dashboard — but to use it, existing customers need to go through an additional sign-up process. 
 From a business perspective, this is a risky move: any new step in the customer journey could add friction and cause users to drop off before completion.
 
-In marketing and product analytics, we often visualise this process as a **funnel** — a series of steps users move through on their way to a goal (for example, from *start* to *confirm*).  
+In marketing and product analytics, we often visualise this process as a **funnel** — a series of steps users move through on their way to a goal (for example, from *start* to *confirm*). 
 Each step represents a decision point where users can continue or abandon the process.
 
 **(a)** Why might the company have decided to test a new sign-up flow rather than simply launching it for everyone?  
@@ -31,37 +31,39 @@ Teaching Note
 
 🎯 **Learning Objective**  
 
-Students should:  
-- Understand why companies use experiments (A/B tests) before rolling out product changes.  
+Students should: 
+
+- Understand why companies use experiments (A/B tests) before rolling out product changes.
 - Recognize how funnels represent a customer journey as a sequence of decision points.
-- Explain how funnels help diagnose *where* and *why* users drop off.  
-- Distinguish between business and customer perspectives when defining “success.”  
+- Explain how funnels help diagnose *where* and *why* users drop off.
+- Distinguish between business and customer perspectives when defining “success.”
 - Appreciate the importance of balancing completion outcomes with user experience.
 
 ✅ **Core Concepts to Highlight**
 
-- **What a funnel is:**  
-  A visual or conceptual model showing how many users remain at each stage of a process.  
-  It narrows from “everyone who starts” to “those who finish.”  
-  Each level shows a *decision point* where people can continue or abandon the journey.
+- **What is a funnel?** 
+  - A model of how users progress through a multi-step process.
+  - It narrows from those who start to those who finish.
+  - Each step is a decision point: continue or abandon.
 
-- **Why funnels matter:**  
-  - Reveal *where* users drop off, not just *how many* finish.  
-  - Help identify friction, confusion, or barriers in multi-step processes.  
-  - Allow teams to measure both efficiency (speed) and effectiveness (completion).
+- **Why do funnels matter?**  
+  - Reveal where users drop off, not just how many finish.
+  - Diagnose friction in multi-step processes.
+  - Allow evaluation of both completion and effort.
 
 - **Experimental design as risk management:**  
-  Testing before rollout reduces uncertainty and prevents company-wide friction.  
+  - Testing before rollout reduces uncertainty and prevents company-wide friction.
+  - It limits downside risk while preserving the option to scale a successful design.
 
 - **Metrics beyond completion:**  
-  Funnels expose behavioural patterns—retries, go-backs, hesitations—that a single completion rate hides.
+  - Funnels expose behavioural patterns—retries, go-backs, hesitations—that a single completion rate hides.
 
 - **Trade-offs:**  
-  Improving completion may come with greater effort or time per user.
+  - Improving completion may come with greater effort or time per user.
 
 - **Dual perspectives:**  
-  - **Company:** success = more conversions with manageable friction.  
-  - **Customer:** success = an easy, trustworthy, low-effort experience.
+  - Company success = more conversions with manageable friction.  
+  - Customer success = an easy, trustworthy, low-effort experience.
 
 💬 **Suggested In-Class Prompts**
 
@@ -72,10 +74,11 @@ Students should:
 
 📌 **Common Misunderstandings**
 
-- Thinking of a funnel as a purely visual chart rather than a behavioural model.  
-- Assuming users move linearly through steps—real funnels can include loops and retries.  
-- Believing that higher completion automatically equals a better experience.  
+- Thinking of a funnel as a purely visual chart rather than a behavioural model.
+- Assuming users move linearly through steps—real funnels can include loops and retries.
+- Believing that higher completion automatically equals a better experience.
 - Overlooking early-step friction because final completion looks strong.
+- Confusing correlation with causation in observed funnel differences.
 
 
 :::
@@ -95,33 +98,33 @@ Solution
 :::
 
 ::: {.solution-block-body}
-#### (a) Why might the company have decided to test a new sign-up flow rather than simply launching it for everyone?
+#### (a)
 
-- **Risk management:** A/B testing reduces the risk of rolling out a design that might increase friction or reduce usage.  
-- **Evidence-based decision-making:** Testing allows the company to observe actual behavioural responses (completion, engagement) before committing.  
-- **Customer experience protection:** A poorly designed flow could frustrate users or lead to churn; testing isolates that risk to a smaller group.  
-- **Learning opportunity:** The experiment helps uncover why people drop off — not just whether they do — enabling refinement before a full launch.
+- A/B testing reduces the risk of introducing a worse experience.
+- It allows decisions to be based on observed behaviour rather than assumptions.
+- It protects customers from large-scale exposure to a poor design.
+- It generates insight into where and why users drop off.
 
-#### (b) What kinds of outcomes or trade-offs should the company be paying attention to?
+#### (b)
 
-- **Completion vs. friction:** Does the new flow make it easier to complete, or does it add steps or confusion?  
-- **Engagement vs. effort:** Higher completion might come at the cost of users spending longer or going back more often.  
-- **Short-term vs. long-term value:** Even if completion rises now, will users continue to engage with the new dashboard later?  
-- **User perception:** Frustrating experiences can damage trust in a financial product, even if eventual completion is high.
+- Completion vs. friction: Does the new flow increase completion at the cost of more effort?
+- Speed vs. accuracy: Are users completing quickly but providing less useful information?
+- Short-term vs. long-term engagement: Do users continue using the feature after signing up?
+- Experience vs. conversion: Does higher completion come with worse perceived quality
 
-#### (c) What can a funnel tell us about customer behaviour that a simple completion rate cannot?
+#### (c)
 
-- **Where** users drop off (step-level insight, not just overall success/failure).  
-- **How** users move through the process — for example, skipping, looping, or hesitating.  
-- **Severity of friction points:** Identifies which steps drive the biggest loss or confusion.  
-- **Improvement opportunities:** Helps prioritise UX fixes that have the largest payoff.
+- Where users drop off (step-level insight, not just overall success/failure).  
+- How users move through the process — for example, skipping, looping, or hesitating.  
+- Severity of friction points: Identifies which steps drive the biggest loss or confusion.  
+- Improvement opportunities: Helps prioritise UX fixes that have the largest payoff.
 
-#### (d) In this experiment, what would “success” look like from both the company’s and the customer’s perspective?
+#### (d)
 
 | Perspective | Success Definition |
 |--------------|-------------------|
-| **Company** | More users complete the new sign-up and reach the dashboard with minimal increase in time or re-engagement effort. |
-| **Customer** | The process feels intuitive, quick — they gain access to the new feature without frustration or confusion. |
+| **Company** | More users complete the process with minimal additional time or effort. |
+| **Customer** | The process is quick, intuitive, and does not introduce frustration or uncertainty. |
 
 :::
 
