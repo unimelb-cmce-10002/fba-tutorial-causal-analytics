@@ -19,6 +19,8 @@ treatment <-
     clean_names()
 ```
 
+What problem does `clean_names()` solve, and how might inconsistent column names affect later steps?
+
 **(b)** Merge the treatment indicator variable into the `demogs` data by completing the code below. We recommend you use an `inner_join()` to do this.
 
 ```{r}
@@ -29,24 +31,32 @@ demogs <-
 
 ```
 
-**(c)** What are the unique values in `variation` column? If needed, drop any rows of data that you won't be able to use in the Treatment vs Control comparison.
+What does a join do in this context, and why must these datasets be combined before analysing the experiment?
+
+**(c)** Next, we want to inspect and clean the treatment variable. First, use `distinct()` to find the values that `variation` takes in our dataset.
 
 ```{r}
 #| eval: false
-# how values in variation?
 demogs |> 
     YOURCODE
+```
 
-# Perform any required operations to remove rows
-# from the data
+What is this step checking, and why is it important to verify these values before proceeding?
+
+Second, use `drop_na()` to remove rows with missing or invalid treatment labels.
+
+```{r}
+#| eval: false
 demogs <-
     demogs |> 
     YOURCODE
 ```
 
+Why do we drop these observations?
+
 **(d)** In a well-designed experiment, each variation should include comparable types of users. How does connect back to the idea of random assignment?
 
-**(e)** Complete the code below to compare demographic compositions of users across treatments. Explain your findings.
+**(e)** Complete the code below to compare demographic compositions of users across treatments.
 
 ```{r}
 #| eval: false
@@ -55,8 +65,7 @@ demogs |>
     st(group = 'YOUR_TREATMENT_INDICATOR')
 ```
 
-
-**(f)** Why is checking balance between treatments the first thing we do before comparing performance?
+What is this table helping us assess, and why do we check this before comparing outcomes?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -107,6 +116,8 @@ Students should:
 
 📌 **Common Misunderstandings**
 
+- Treating data cleaning as a purely technical step rather than part of inference.
+- Assuming joins are mechanical rather than conceptually important.
 - Expecting perfect (identical) balance rather than approximate similarity.  
 - Thinking balance checks are only about fairness rather than validity of inference.  
 
@@ -130,7 +141,6 @@ Solution
 ::: {.solution-block-body}
 
 **(a)**  
-Load both datasets and inspect them.
 
 ```{r}
 demogs <- 
@@ -140,6 +150,8 @@ treatment <-
     janitor::clean_names()
 ```
 
+`clean_names()` standardises column names into a consistent format, usually lowercase with underscores. This is useful because consistent variable names reduce errors and make later joins and data manipulation easier.
+
 **(b)** 
 
 ```{r}
@@ -148,18 +160,35 @@ demogs <-
     inner_join(treatment, join_by(client_id))
 ```
 
+A join combines the demographic data with the treatment assignment data using the common identifier `client_id`.
+
+This is necessary because:
+
+-  The demographic dataset contains user characteristics
+-  The treatment dataset contains variation assignment
+
+We need both in the same dataset before we can compare treatment groups (and so assess balance).
+
 **(c)**
 
 ```{r}
 # view unique values
 demogs |> 
     distinct(variation)
+```
 
+This checks the unique values in the variation variable. 
+It is important because we need to verify that the treatment variable contains usable categories such as "Control" and "Test", and identify missing or unexpected values.
+
+```{r}
 # drop missing or unusable rows
 demogs <- 
     demogs |> 
     drop_na(variation)
 ```
+
+This removes rows where variation is missing.
+We do this because observations without a valid treatment assignment cannot be used in a treatment-versus-control comparison.
 
 **(d)** 
 In a well-designed experiment, both variations should contain similar types of users.
@@ -167,7 +196,6 @@ This connects directly to the idea of random assignment — if users are randoml
 Balanced characteristics increase confidence that later performance differences are due to the new sign-up flow, not underlying user differences.
 
 **(e)** 
-Compare demographic balance across treatments.
 
 ```{r}
 demogs |> 
@@ -175,16 +203,13 @@ demogs |>
     st(group = 'variation')
 ```
 
-The summary table (`st()`) should show nearly identical means and proportions across groups.
+We check balance first because it verifies that the experimental design was implemented credibly.
+The summary table (`st()`) should show nearly identical means and proportions across groups. Small random differences are expected, but no systematic gaps should appear.
 
-Small random differences are expected, but no systematic gaps should appear.
+If Control and Test differ systematically at baseline, then later differences in completion or behaviour may not be caused by the new sign-up flow. And so, checking balance first protects the credibility of the causal comparison.
 
-**(f)**
-Checking balance is the first step before comparing performance because:
 
-- It verifies that random assignment was implemented correctly.
-- If groups differ systematically at baseline, outcome differences could reflect pre-existing characteristics rather than the experimental change.
-- Confirming balance ensures that any observed effects can be credibly attributed to the new sign-up flow.
+
 :::
 
 :::
