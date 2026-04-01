@@ -19,9 +19,13 @@ weblog <-
 glimpse(YOURCODE)
 ```
 
-**(b)** Explain the structure of the data. What kind of information does each row represent?
+What problem does `map_df()` solve here, and why might the data be stored across multiple files?
 
-**(c)** A common problem when working with event log data is duplicate rows, where the same information is recorded multiple times. Clean the data to remove duplicate rows by completing the code below:
+**(b)** Explain the structure of the data. What kind of information does each row represent? How is this different from the demographic dataset used earlier?
+
+**(c)** A common problem when working with event log data is duplicate rows, where the same information is recorded multiple times. 
+
+Clean the data to remove duplicate rows by completing the code below:
 
 ```{r}
 #| eval: false
@@ -29,6 +33,8 @@ weblog_clean <-
     weblog |> 
     YOURCODE
 ```
+
+What might happen if we failed to remove duplicates before computing outcomes?
 
 **(d)** Merge the cleaned web log data with the dataset that contains information on which clients are assigned to each treatment. Drop any observations that are not assigned to either "Test" or "Control".
 
@@ -40,7 +46,7 @@ weblog_clean <-
     YOUR_CODE
 ```
 
-
+Why do we restrict the dataset to users with valid treatment assignments before analysing behaviour?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -58,8 +64,8 @@ Students should:
 
 - Understand the structure and purpose of event-level (web log) data.  
 - Learn how to combine and clean multiple files representing behavioural events.  
-- Recognize why deduplication and correct joins are essential for experimental integrity.  
-- Connect data-processing choices (e.g., join type) to causal reasoning about experimental outcomes.
+- Understand why web log data must be linked to treatment assignment before comparing behaviour across groups.
+- Connect data cleaning and merging choices to the credibility of experimental analysis.
 
 ✅ **Core Concepts to Highlight**
 
@@ -74,11 +80,14 @@ Students should:
   Duplicate events inflate counts and distort metrics like completion rates or average steps.  
   Always verify and clean before aggregation.
 
-- **Merging datasets with experimental info:**  
-  Joining web logs to treatment data connects user behaviour to variation assignment.  
-  Discuss `inner_join()` vs `left_join()`:
-  - `inner_join()` keeps only matched records — ensuring analysis is limited to valid experiment participants.  
-  - `left_join()` would keep all log entries, including unmatched ones, which might include noise or test accounts.
+- **Linking behaviour to treatment:**
+  Event data alone does not tell us whether a user was in Control or Test.
+  Joining web logs to treatment assignment allows later comparisons of behaviour across variations.
+  Restricting to valid treatment assignments ensures that only usable experimental observations are analysed.
+
+- **Data preparation as part of causal analysis:**
+  These are not merely technical housekeeping steps.
+  They are part of making sure that later comparisons are meaningful and credible.
 
 💬 **Suggested In-Class Prompts**
 
@@ -92,10 +101,9 @@ Students should:
 
 - Treating event data as if each row were a unique user.  
 - Assuming all duplicates are errors without understanding possible system-level causes.  
-- Thinking join type doesn’t matter — it changes which users are included in the analysis.  
+- Thinking join type doesn’t matter even though it changes which users are included in the analysis.  
 - Forgetting to check for missing variation labels before computing treatment effects.
 - Believing that cleaning steps are purely technical rather than part of ensuring valid inference.
-
 
 :::
 
@@ -116,10 +124,8 @@ Solution
 ::: {.solution-block-body}
 
 **(a)** 
+
 ```{r}
-# this process is new to students, explain it intuitively
-# they dont have to be able to reproduce
-# map_df() reads both files and combines them into a single tibble.
 weblogs_files <- 
     c('data/ab_test_web_data_pt_1.txt',
       'data/ab_test_web_data_pt_2.txt')
@@ -131,20 +137,23 @@ weblog <-
 glimpse(weblog)
 ```
 
+`map_df()` applies `read_csv()` to each file in `weblogs_files` and then combines the results into one dataset.
+
+This is useful because it saves us from reading and binding each file manually.
+
+The data may be stored across multiple files because behavioural datasets are often large, collected in batches, or split for storage and processing reasons.
+
 **(b)** 
 
-Each row corresponds to a single user event.
+Each row represents a single user (`client_id`) taking some action (`process_step`) at a particular point in time (`date_time`).
 
-Key variables include:
+This differs from the demographic dataset because:
 
-- client_id: the unique identifier for the user
-- visit_id: session identifier
-- process_step: which stage of the funnel the event represents
-- date_time: timestamp of the action
-
-Unlike demographic data, this dataset captures behaviour over time, not static attributes.
+- the demographic data are user-level, with one row per client
+- the web log data are event-level, with multiple rows per client possible
 
 **(c)** 
+
 ```{r}
 weblog_clean <- 
     weblog |> 
@@ -154,9 +163,7 @@ weblog_clean <-
 
 `distinct()` drops any exact duplicate rows — ensuring that the same event isn’t counted twice.
 
-Duplicates can arise from data-collection glitches, double logging, or users refreshing pages.
-
-Cleaning them prevents over-counting when later computing events per user or funnel completion rates.
+Removing duplicates prevents over-counting when later computing events per user or funnel completion rates.
 
 **(d)**
 
@@ -168,6 +175,13 @@ weblog_clean <-
 
 ```
 
+Joining these data sets allows us to compare behaviour across the Test and Control groups.
+
+`drop_na(variation)` removes observations without a valid treatment label. We restrict the dataset to users with valid treatment assignments because:
+
+- only those users belong to the experiment in a usable way
+- observations without treatment status cannot be placed in Control or Test
+- keeping them would weaken the credibility of later comparisons
 
 :::
 
