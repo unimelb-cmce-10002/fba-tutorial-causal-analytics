@@ -1,15 +1,62 @@
 <!-- question-type: prepare -->
-### Exercise 2: Why Do We Test?
+### Exercise 2: Exploring the Experimental Data
 
-Before analysing the data, take a moment to think about *why* companies design controlled experiments in the first place.
+It’s time to look at the data from the experiment.
 
-The fintech company could have simply launched the new sign-up process for everyone and watched how overall sign-ups changed.
-Instead, they decided to run an **A/B test**, randomly assigning users to the **Control** (old process) or **Test** (new process) version.
+You have two datasets:  
+- `ab_test_demographics`: information about each client.  
+- `ab_test_experiment_clients`: information on which clients were assigned to the **Control** or **Test** variation.
 
-**(a)** Why is it risky to compare completion rates before and after the new sign-up process without a test?  
+Our goal is to merge these datasets and check whether allocation to treatment and control groups is balanced across deomgraphic characteristics.
 
-**(b)** How does random assignment in an A/B test help us make a fair comparison?
+**(a)** Load the two datasets into R by completing the code below:
 
+```{r}
+#| eval: false
+demogs <- YOURCODE 
+treatment <- 
+    YOURCODE |> 
+    clean_names()
+```
+
+**(b)** Merge the treatment indicator variable into the `demogs` data by completing the code below. We recommend you use an `inner_join()` to do this.
+
+```{r}
+#| eval: false
+demogs <- 
+    demogs |>
+    YOURCODE
+
+```
+
+**(c)** What are the unique values in `variation` column? If needed, drop any rows of data that you won't be able to use in the Treatment vs Control comparison.
+
+```{r}
+#| eval: false
+# how values in variation?
+demogs |> 
+    YOURCODE
+
+# Perform any required operations to remove rows
+# from the data
+demogs <-
+    demogs |> 
+    YOURCODE
+```
+
+**(d)** In a well-designed experiment, each variation should include comparable types of users. How does connect back to the idea of random assignment?
+
+**(e)** Complete the code below to compare demographic compositions of users across treatments. Explain your findings.
+
+```{r}
+#| eval: false
+demogs |> 
+    select(-client_id) |> 
+    st(group = 'YOUR_TREATMENT_INDICATOR')
+```
+
+
+**(f)** Why is checking balance between treatments the first thing we do before comparing performance?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -21,40 +68,47 @@ Teaching Note
 :::
 
 ::: {.teaching-block-body}
-### 🧩 Teaching Guide — Exercise 2: Why Do We Test
 
 🎯 **Learning Objective**  
 Students should:  
-- Understand why before/after comparisons can be misleading in business analytics.  
-- Explain how random assignment helps create fair comparisons between groups.  
-- Recognize that A/B testing provides a way to isolate the impact of a change while holding other factors constant.
+
+- Learn how to combine demographic and experimental‐assignment data to prepare for analysis.  
+- Understand why checking group balance is essential for credible experimental inference.  
+- Recognize how random assignment supports fair comparison between treatment and control groups.  
+- Connect data‐cleaning steps (joins, missing values) to experimental design logic.
 
 ✅ **Core Concepts to Highlight**
 
-- **Observational vs. experimental comparison:**  
-  Observing outcomes before and after a change captures both the effect of the change *and* any other factors that vary over time.
+- **Data integration:**  
+  Experiments often require merging multiple datasets (user characteristics + treatment allocation).  
+  Clean joins are critical for ensuring every observation has complete information.
 
-- **Confounding factors:**  
-  External influences such as marketing campaigns, seasonality, or shifts in user composition can mimic or mask the true effect.
+- **Uniqueness of identifiers:**  
+  Each client ID should appear only once per dataset; duplicates threaten the logic of random assignment.
 
-- **Purpose of random assignment:**  
-  Randomization ensures that, on average, both groups are similar in everything except the change being tested.
+- **Random assignment and balance:**  
+  If assignment worked, demographic characteristics should be evenly distributed across variations.  
+  Balance gives confidence that outcome differences later reflect the experimental change.
 
-- **Correct Group comparison logic:**  
-  Differences in outcomes between randomized groups can be interpreted as the causal effect of the new process.
+- **Interpreting balance tables:**  
+  Nearly identical means or proportions across groups indicate success.  
+  Minor random variation is expected; systematic gaps signal implementation issues.
+
+- **Why balance matters first:**  
+  Establishing comparability before outcome analysis preserves causal credibility.
 
 💬 **Suggested In-Class Prompts**
 
-- “What could make sign-up rates rise even if the new process didn’t help?”  
-- “How does random assignment protect us from these external influences?”  
-- “Why do we say experiments make groups comparable *on average* rather than exactly?”
+- “What could happen if one group had systematically older or more experienced users?”
+- “Why might a random process still produce small imbalances?”  
+- “How would you explain to a manager why we check balance before looking at results?”
+- [Advanced] "How could we test whether there are differences between treatments?"
+- “If random assignment failed, can we still interpret completion differences as causal?”
 
 📌 **Common Misunderstandings**
 
-- Assuming that a change in outcomes automatically means the change caused it.  
-- Believing randomization guarantees identical groups rather than similarity in expectation.  
-- Forgetting that timing, seasonality, or marketing activity can drive apparent improvements.  
-- Confusing correlation (two things moving together) with causation (one thing driving the other).
+- Expecting perfect (identical) balance rather than approximate similarity.  
+- Thinking balance checks are only about fairness rather than validity of inference.  
 
 
 :::
@@ -74,14 +128,63 @@ Solution
 :::
 
 ::: {.solution-block-body}
-#### (a)
-- Comparing before and after can be misleading because other factors might change at the same time (seasonality, marketing campaigns, economic conditions, or user mix).  
-- Any observed improvement might reflect timing or external influences rather than the new process itself.
 
-#### (b)
-- Random assignment balances both known and unknown factors between the Control and Test groups.  
-- Because the groups are comparable at the start, any systematic difference in outcomes can be attributed to the new process rather than to pre-existing differences.
+**(a)**  
+Load both datasets and inspect them.
 
+```{r}
+demogs <- 
+    read_csv("data/ab_test_demographics.txt")
+treatment <- 
+    read_csv("data/ab_test_experiment_clients.txt") |> 
+    janitor::clean_names()
+```
+
+**(b)** 
+
+```{r}
+demogs <- 
+    demogs |>
+    inner_join(treatment, join_by(client_id))
+```
+
+**(c)**
+
+```{r}
+# view unique values
+demogs |> 
+    distinct(variation)
+
+# drop missing or unusable rows
+demogs <- 
+    demogs |> 
+    drop_na(variation)
+```
+
+**(d)** 
+In a well-designed experiment, both variations should contain similar types of users.
+This connects directly to the idea of random assignment — if users are randomly allocated, differences in demographics should appear only by chance.
+Balanced characteristics increase confidence that later performance differences are due to the new sign-up flow, not underlying user differences.
+
+**(e)** 
+Compare demographic balance across treatments.
+
+```{r}
+demogs |> 
+    select(-client_id) |> 
+    st(group = 'variation')
+```
+
+The summary table (`st()`) should show nearly identical means and proportions across groups.
+
+Small random differences are expected, but no systematic gaps should appear.
+
+**(f)**
+Checking balance is the first step before comparing performance because:
+
+- It verifies that random assignment was implemented correctly.
+- If groups differ systematically at baseline, outcome differences could reflect pre-existing characteristics rather than the experimental change.
+- Confirming balance ensures that any observed effects can be credibly attributed to the new sign-up flow.
 :::
 
 :::

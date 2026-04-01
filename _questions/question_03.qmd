@@ -1,62 +1,46 @@
-<!-- question-type: prepare -->
-### Exercise 3: Exploring the Experimental Data
+<!-- question-type: inclass -->
+### Exercise 3: Working with Web Log Data
 
-It’s time to look at the data from the experiment.
+Now that you’ve checked that users were randomly assigned to the Test and Control groups, it's time to examine what they actually did inside the experiment.  
+In this step, you’ll work with **event-level data** — information about each time a user interacted with the sign-up process.
 
-You have two datasets:  
-- `ab_test_demographics`: information about each client.  
-- `ab_test_experiment_clients`: information on which clients were assigned to the **Control** or **Test** variation.
-
-Our goal is to merge these datasets and check whether allocation to treatment and control groups is balanced across deomgraphic characteristics.
-
-**(a)** Load the two datasets into R by completing the code below:
+**(a)** Load and inspect the web log data. The data are split across two files.  Run the code below to combine them into one dataset.
 
 ```{r}
 #| eval: false
-demogs <- YOURCODE 
-treatment <- 
-    YOURCODE |> 
-    clean_names()
+weblogs_files <- 
+    c('data/ab_test_web_data_pt_1.txt',
+      'data/ab_test_web_data_pt_2.txt')
+
+weblog <- 
+    weblogs_files |> 
+    map_df(read_csv)
+
+glimpse(YOURCODE)
 ```
 
-**(b)** Merge the treatment indicator variable into the `demogs` data by completing the code below. We recommend you use an `inner_join()` to do this.
+**(b)** Explain the structure of the data. What kind of information does each row represent?
+
+**(c)** A common problem when working with event log data is duplicate rows, where the same information is recorded multiple times. Clean the data to remove duplicate rows by completing the code below:
 
 ```{r}
 #| eval: false
-demogs <- 
-    demogs |>
-    YOURCODE
-
-```
-
-**(c)** What are the unique values in `variation` column? If needed, drop any rows of data that you won't be able to use in the Treatment vs Control comparison.
-
-```{r}
-#| eval: false
-# how values in variation?
-demogs |> 
-    YOURCODE
-
-# Perform any required operations to remove rows
-# from the data
-demogs <-
-    demogs |> 
+weblog_clean <- 
+    weblog |> 
     YOURCODE
 ```
 
-**(d)** In a well-designed experiment, each variation should include comparable types of users. How does connect back to the idea of random assignment?
-
-**(e)** Complete the code below to compare demographic compositions of users across treatments. Explain your findings.
+**(d)** Merge the cleaned web log data with the dataset that contains information on which clients are assigned to each treatment. Drop any observations that are not assigned to either "Test" or "Control".
 
 ```{r}
 #| eval: false
-demogs |> 
-    select(-client_id) |> 
-    st(group = 'YOUR_TREATMENT_INDICATOR')
+weblog_clean <- 
+    weblog_clean |> 
+    YOUR_CODE |> 
+    YOUR_CODE
 ```
 
 
-**(f)** Why is checking balance between treatments the first thing we do before comparing performance?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -68,47 +52,49 @@ Teaching Note
 :::
 
 ::: {.teaching-block-body}
-
 🎯 **Learning Objective**  
+
 Students should:  
 
-- Learn how to combine demographic and experimental‐assignment data to prepare for analysis.  
-- Understand why checking group balance is essential for credible experimental inference.  
-- Recognize how random assignment supports fair comparison between treatment and control groups.  
-- Connect data‐cleaning steps (joins, missing values) to experimental design logic.
+- Understand the structure and purpose of event-level (web log) data.  
+- Learn how to combine and clean multiple files representing behavioural events.  
+- Recognize why deduplication and correct joins are essential for experimental integrity.  
+- Connect data-processing choices (e.g., join type) to causal reasoning about experimental outcomes.
 
 ✅ **Core Concepts to Highlight**
 
-- **Data integration:**  
-  Experiments often require merging multiple datasets (user characteristics + treatment allocation).  
-  Clean joins are critical for ensuring every observation has complete information.
+- **Event-level vs. user-level data:**  
+  Each row represents an action in time, not a person. This introduces sequence, timing, and frequency — enabling behavioural analysis (e.g., funnel progression).
 
-- **Uniqueness of identifiers:**  
-  Each client ID should appear only once per dataset; duplicates threaten the logic of random assignment.
+- **Combining multiple data sources:**  
+  Large-scale behavioural data are often split into multiple files for storage or collection reasons.  
+  Using `map_df()` generalizes to real-world pipelines where analysts need to stitch data together.
 
-- **Random assignment and balance:**  
-  If assignment worked, demographic characteristics should be evenly distributed across variations.  
-  Balance gives confidence that outcome differences later reflect the experimental change.
+- **Duplicates and data integrity:**  
+  Duplicate events inflate counts and distort metrics like completion rates or average steps.  
+  Always verify and clean before aggregation.
 
-- **Interpreting balance tables:**  
-  Nearly identical means or proportions across groups indicate success.  
-  Minor random variation is expected; systematic gaps signal implementation issues.
-
-- **Why balance matters first:**  
-  Establishing comparability before outcome analysis preserves causal credibility.
+- **Merging datasets with experimental info:**  
+  Joining web logs to treatment data connects user behaviour to variation assignment.  
+  Discuss `inner_join()` vs `left_join()`:
+  - `inner_join()` keeps only matched records — ensuring analysis is limited to valid experiment participants.  
+  - `left_join()` would keep all log entries, including unmatched ones, which might include noise or test accounts.
 
 💬 **Suggested In-Class Prompts**
 
-- “What could happen if one group had systematically older or more experienced users?”
-- “Why might a random process still produce small imbalances?”  
-- “How would you explain to a manager why we check balance before looking at results?”
-- [Advanced] "How could we test whether there are differences between treatments?"
-- “If random assignment failed, can we still interpret completion differences as causal?”
+- “Why might we prefer to analyse event-level data instead of only final outcomes?”  
+- “What could happen if duplicate events weren’t removed?”  
+- “What are the trade-offs between `inner_join()` and `left_join()` here?”  
+- “If a large share of users disappears after joining, what would that tell you about data quality?”  
+- “How does this step prepare us for measuring completion or other behaviour”
 
 📌 **Common Misunderstandings**
 
-- Expecting perfect (identical) balance rather than approximate similarity.  
-- Thinking balance checks are only about fairness rather than validity of inference.  
+- Treating event data as if each row were a unique user.  
+- Assuming all duplicates are errors without understanding possible system-level causes.  
+- Thinking join type doesn’t matter — it changes which users are included in the analysis.  
+- Forgetting to check for missing variation labels before computing treatment effects.
+- Believing that cleaning steps are purely technical rather than part of ensuring valid inference.
 
 
 :::
@@ -129,62 +115,60 @@ Solution
 
 ::: {.solution-block-body}
 
-**(a)**  
-Load both datasets and inspect them.
-
+**(a)** 
 ```{r}
-demogs <- 
-    read_csv("data/ab_test_demographics.txt")
-treatment <- 
-    read_csv("data/ab_test_experiment_clients.txt") |> 
-    janitor::clean_names()
+# this process is new to students, explain it intuitively
+# they dont have to be able to reproduce
+# map_df() reads both files and combines them into a single tibble.
+weblogs_files <- 
+    c('data/ab_test_web_data_pt_1.txt',
+      'data/ab_test_web_data_pt_2.txt')
+
+weblog <- 
+    weblogs_files |> 
+    map_df(read_csv)
+
+glimpse(weblog)
 ```
 
 **(b)** 
 
+Each row corresponds to a single user event.
+
+Key variables include:
+
+- client_id: the unique identifier for the user
+- visit_id: session identifier
+- process_step: which stage of the funnel the event represents
+- date_time: timestamp of the action
+
+Unlike demographic data, this dataset captures behaviour over time, not static attributes.
+
+**(c)** 
 ```{r}
-demogs <- 
-    demogs |>
-    inner_join(treatment, join_by(client_id))
+weblog_clean <- 
+    weblog |> 
+    distinct()
+
 ```
 
-**(c)**
+`distinct()` drops any exact duplicate rows — ensuring that the same event isn’t counted twice.
+
+Duplicates can arise from data-collection glitches, double logging, or users refreshing pages.
+
+Cleaning them prevents over-counting when later computing events per user or funnel completion rates.
+
+**(d)**
 
 ```{r}
-# view unique values
-demogs |> 
-    distinct(variation)
-
-# drop missing or unusable rows
-demogs <- 
-    demogs |> 
+weblog_clean <- 
+    weblog_clean |> 
+    inner_join(treatment, join_by(client_id)) |> 
     drop_na(variation)
+
 ```
 
-**(d)** 
-In a well-designed experiment, both variations should contain similar types of users.
-This connects directly to the idea of random assignment — if users are randomly allocated, differences in demographics should appear only by chance.
-Balanced characteristics increase confidence that later performance differences are due to the new sign-up flow, not underlying user differences.
 
-**(e)** 
-Compare demographic balance across treatments.
-
-```{r}
-demogs |> 
-    select(-client_id) |> 
-    st(group = 'variation')
-```
-
-The summary table (`st()`) should show nearly identical means and proportions across groups.
-
-Small random differences are expected, but no systematic gaps should appear.
-
-**(f)**
-Checking balance is the first step before comparing performance because:
-
-- It verifies that random assignment was implemented correctly.
-- If groups differ systematically at baseline, outcome differences could reflect pre-existing characteristics rather than the experimental change.
-- Confirming balance ensures that any observed effects can be credibly attributed to the new sign-up flow.
 :::
 
 :::

@@ -1,46 +1,59 @@
 <!-- question-type: inclass -->
-### Exercise 4: Working with Web Log Data
+### Exercise 4: Measuring Funnel Completion
 
-Now that you’ve checked that users were randomly assigned to the Test and Control groups, it's time to examine what they actually did inside the experiment.  
-In this step, you’ll work with **event-level data** — information about each time a user interacted with the sign-up process.
+Now that we've linked event-level data with the experimental information, let's create our first outcome measure — **funnel completion**.
 
-**(a)** Load and inspect the web log data. The data are split across two files.  Run the code below to combine them into one dataset.
+Each client goes through a series of process steps (for example, `start`, `step_1`, `step_2`, `confirm`).  
+A funnel *completion* occurs if the client reaches the final step, `"confirm"`.
 
-```{r}
-#| eval: false
-weblogs_files <- 
-    c('data/ab_test_web_data_pt_1.txt',
-      'data/ab_test_web_data_pt_2.txt')
-
-weblog <- 
-    weblogs_files |> 
-    map_df(read_csv)
-
-glimpse(YOURCODE)
-```
-
-**(b)** Explain the structure of the data. What kind of information does each row represent?
-
-**(c)** A common problem when working with event log data is duplicate rows, where the same information is recorded multiple times. Clean the data to remove duplicate rows by completing the code below:
+**(a)** Compute a client-level indicator for whether each client completed the funnel by completing the code below.
 
 ```{r}
 #| eval: false
-weblog_clean <- 
-    weblog |> 
-    YOURCODE
+completion_by_visitor <- 
+    YOUR_CODE |>
+    group_by(YOUR_CODE) |>
+    YOUR_CODE(
+        completed = any(YOUR_CODE == "confirm"),
+        .groups = "drop"
+    )
+
 ```
 
-**(d)** Merge the cleaned web log data with the dataset that contains information on which clients are assigned to each treatment. Drop any observations that are not assigned to either "Test" or "Control".
+**(b)** Summarise completion rates by treatment.
 
 ```{r}
 #| eval: false
-weblog_clean <- 
-    weblog_clean |> 
-    YOUR_CODE |> 
-    YOUR_CODE
+completion_summary <- 
+    YOUR_CODE |>
+    YOUR_CODE |>
+    summarise(
+        completes = YOUR_CODE,
+        total     = YOUR_CODE,
+        pct       = completes / total * 100,
+        .groups   = "drop"
+    )
+
 ```
 
+**(c)** Create a simple visual to compare completion rates across the two variations. Use a bar chart to display the percentage of users who completed the funnel.
 
+```{r}
+#| eval: false
+completion_summary |> 
+    YOUR_CODE +
+    YOUR_CODE +
+    geom_text(aes(label = round(pct, 1)), vjust = -0.5) +
+    labs(
+        title = "Funnel Completion Rate by Variation",
+        x = "Variation",
+        y = "Completion Rate (%)"
+    ) +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
+
+**(d)** Interpret your findings. By how many percentage points did the change in sign up process influence completions?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -52,49 +65,46 @@ Teaching Note
 :::
 
 ::: {.teaching-block-body}
+
 🎯 **Learning Objective**  
-
 Students should:  
-
-- Understand the structure and purpose of event-level (web log) data.  
-- Learn how to combine and clean multiple files representing behavioural events.  
-- Recognize why deduplication and correct joins are essential for experimental integrity.  
-- Connect data-processing choices (e.g., join type) to causal reasoning about experimental outcomes.
+- Learn how to summarise event-level data into client-level outcomes.  
+- Understand how to calculate and interpret funnel completion rates across experimental groups.  
+- Recognize the importance of clear visual and numerical comparisons when communicating results.  
+- Begin linking descriptive differences to the logic of causal effects (without formal inference yet).
 
 ✅ **Core Concepts to Highlight**
 
-- **Event-level vs. user-level data:**  
-  Each row represents an action in time, not a person. This introduces sequence, timing, and frequency — enabling behavioural analysis (e.g., funnel progression).
+- **Aggregation and granularity:**  
+  Explain how summarising event-level actions to the client level captures whether each user “succeeded” in completing the funnel.
 
-- **Combining multiple data sources:**  
-  Large-scale behavioural data are often split into multiple files for storage or collection reasons.  
-  Using `map_df()` generalizes to real-world pipelines where analysts need to stitch data together.
+- **Outcome definition:**  
+  The choice of “completion” as the outcome connects directly to the business question: *Did the new sign-up flow help more users finish?*
 
-- **Duplicates and data integrity:**  
-  Duplicate events inflate counts and distort metrics like completion rates or average steps.  
-  Always verify and clean before aggregation.
+- **Descriptive comparison:**  
+  Computing and plotting completion rates is the first step toward evaluating impact — but these are still *descriptive statistics*, not causal claims.
 
-- **Merging datasets with experimental info:**  
-  Joining web logs to treatment data connects user behaviour to variation assignment.  
-  Discuss `inner_join()` vs `left_join()`:
-  - `inner_join()` keeps only matched records — ensuring analysis is limited to valid experiment participants.  
-  - `left_join()` would keep all log entries, including unmatched ones, which might include noise or test accounts.
+- **Percentage vs. percentage points:**  
+  A difference between 65.6 % and 69.3 % is **3.7 percentage points**, not “3.7 % improvement.”  
+  Reinforce this distinction — it’s critical for clean business communication.
+
+- **Visualization for stakeholders:**  
+  A simple bar chart makes the result accessible to non-technical audiences and aligns with how analytics teams typically communicate A/B test results.
 
 💬 **Suggested In-Class Prompts**
 
-- “Why might we prefer to analyse event-level data instead of only final outcomes?”  
-- “What could happen if duplicate events weren’t removed?”  
-- “What are the trade-offs between `inner_join()` and `left_join()` here?”  
-- “If a large share of users disappears after joining, what would that tell you about data quality?”  
-- “How does this step prepare us for measuring completion or other behaviour”
+- “Why do we calculate this at the *client* level instead of the *event* level?”  
+- “If we see a 3.7 percentage-point difference, is that large or small in this context?”  
+- “How might we explain this result to a product manager in one sentence?”  
+- “What are some reasons the Test group might outperform the Control beyond the design change itself?”  
 
 📌 **Common Misunderstandings**
 
-- Treating event data as if each row were a unique user.  
-- Assuming all duplicates are errors without understanding possible system-level causes.  
-- Thinking join type doesn’t matter — it changes which users are included in the analysis.  
-- Forgetting to check for missing variation labels before computing treatment effects.
-- Believing that cleaning steps are purely technical rather than part of ensuring valid inference.
+- Confusing *percentage points* (absolute difference) with *percent change* (relative difference).  
+- Forgetting that descriptive differences alone don’t confirm causality.  
+- Assuming visualizations replace numerical summaries rather than complement them.  
+- Interpreting the `any()` function incorrectly (thinking it counts events instead of checking existence).  
+- Ignoring potential data issues such as missing or duplicated user IDs when summarising.
 
 
 :::
@@ -115,60 +125,72 @@ Solution
 
 ::: {.solution-block-body}
 
-**(a)** 
+**(a)** Compute a client-level indicator for whether each client completed the funnel.
+
 ```{r}
-# this process is new to students, explain it intuitively
-# they dont have to be able to reproduce
-# map_df() reads both files and combines them into a single tibble.
-weblogs_files <- 
-    c('data/ab_test_web_data_pt_1.txt',
-      'data/ab_test_web_data_pt_2.txt')
-
-weblog <- 
-    weblogs_files |> 
-    map_df(read_csv)
-
-glimpse(weblog)
+completion_by_visitor <- 
+    weblog_clean |>
+    group_by(variation, client_id) |>
+    summarise(
+        completed = any(process_step == "confirm"),
+        .groups = "drop"
+    )
 ```
 
-**(b)** 
+The `any(process_step == "confirm")` condition checks whether a client ever reached the "confirm" step.
 
-Each row corresponds to a single user event.
+The grouping ensures this is calculated per client and per variation. The latter simply keeps the treatment allocation attached to the summary data
 
-Key variables include:
+The resulting dataset has one row per client, indicating whether they completed (TRUE) or not (FALSE).
 
-- client_id: the unique identifier for the user
-- visit_id: session identifier
-- process_step: which stage of the funnel the event represents
-- date_time: timestamp of the action
+**(b)** Summarise completion rates by treatment.
 
-Unlike demographic data, this dataset captures behaviour over time, not static attributes.
+```{r}
+completion_summary <- 
+    completion_by_visitor |>
+    group_by(variation) |>
+    summarise(
+        completes = sum(completed),
+        total     = n(),
+        pct       = completes / total * 100,
+        .groups   = "drop"
+    )
+```
+
+`sum(completed)` counts how many clients completed the funnel.
+
+`n()` counts how many total clients were in that variation.
+
+Dividing gives a percentage completion rate (pct) for each variation.
+
+This summary table provides the key comparison for the experiment.
 
 **(c)** 
 ```{r}
-weblog_clean <- 
-    weblog |> 
-    distinct()
-
+completion_summary |> 
+    ggplot(aes(x = variation, y = pct, fill = variation)) +
+    geom_col() +
+    geom_text(aes(label = round(pct, 1)), vjust = -0.5) +
+    labs(
+        title = "Funnel Completion Rate by Variation",
+        x = "Variation",
+        y = "Completion Rate (%)"
+    ) +
+    theme_minimal() +
+    theme(legend.position = "none")
 ```
 
-`distinct()` drops any exact duplicate rows — ensuring that the same event isn’t counted twice.
+The plot visually compares completion rates across variations.
 
-Duplicates can arise from data-collection glitches, double logging, or users refreshing pages.
+Bars make it easy to see which variation performs better and by how much.
 
-Cleaning them prevents over-counting when later computing events per user or funnel completion rates.
+Adding text labels helps decision-makers read exact percentages directly from the chart.
 
-**(d)**
+**(d) ** Interpretation
 
-```{r}
-weblog_clean <- 
-    weblog_clean |> 
-    inner_join(treatment, join_by(client_id)) |> 
-    drop_na(variation)
+The difference in completion rates (in percentage points) represents the estimated effect of the new sign-up flow.
 
-```
-
-
+Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points.
 :::
 
 :::

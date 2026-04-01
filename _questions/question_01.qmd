@@ -1,21 +1,29 @@
 <!-- question-type: prepare -->
-### Exercise 1: Understanding the Business Context
+### Exercise 1: Understanding the Business Context to See Why We Use Experiments to Test
 
-Before we start analysing the data, take a step back and think about the business motivation behind this experiment. This exercise introduces how product teams think about causal effects in real-world settings.
+Before analysing the data, take a step back and think about the business motivation behind this experiment.
 
-The company has introduced a new personalised insights dashboard — but to use it, existing customers need to go through an additional sign-up process. 
-From a business perspective, this is a risky move: any new step in the customer journey could add friction and cause users to drop off before completion.
+The company has introduced a new personalised insights dashboard — but to use it, existing customers must complete an additional sign-up process.
+This is a risky move. Each additional step in the customer journey can introduce friction and reduce completion.
 
-In marketing and product analytics, we often visualise this process as a **funnel** — a series of steps users move through on their way to a goal (for example, from *start* to *confirm*). 
-Each step represents a decision point where users can continue or abandon the process.
+Completion is not just a UX metric — it is directly tied to financial performance.
+If fewer users complete the process, fewer access the new feature, reducing engagement, retentiosn, and ultimately revenue.
+At scale, even small drops in completion can translate into large losses in customer lifetime value.
 
-**(a)** Why might the company have decided to test a new sign-up flow rather than simply launching it for everyone?  
+In product analytics, we often represent a sign-up process as a **funnel** — a sequence of steps where users either continue or drop out at each stage (for example, from start to confirm).
+Each step is a decision point.
 
-**(b)** What kinds of outcomes or trade-offs should the company be paying attention to?  
+If we observe differences in completion rates or drop-off across steps, an important question arises: are these differences caused by the new design, or by other factors?
 
-**(c)** What can a funnel tell us about customer behaviour that a simple completion rate cannot?  
+**(a)** Why might the company choose to test a new sign-up flow rather than launch it for all users immediately?
 
-**(d)** In this experiment, what would "success" look like from both the company’s and the customer’s perspective?
+**(b)** What outcomes or trade-offs should the company pay attention to when evaluating the new flow (think about success from the users' perspective vs the company's perspective)?
+
+**(c)** What can a funnel reveal about customer behaviour that a simple completion rate cannot?
+
+**(d)** Why is it risky to compare completion rates before and after introducing the new sign-up process?
+
+**(e)** How does random assignment in an A/B test help us isolate the effect of the new design?
 
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
@@ -33,52 +41,58 @@ Teaching Note
 
 Students should: 
 
-- Understand why companies use experiments (A/B tests) before rolling out product changes.
-- Recognize how funnels represent a customer journey as a sequence of decision points.
-- Explain how funnels help diagnose *where* and *why* users drop off.
-- Distinguish between business and customer perspectives when defining “success.”
-- Appreciate the importance of balancing completion outcomes with user experience.
+- Understand why firms use experiments before rolling out product changes.
+- Recognise funnels as behavioural models of multi-step decision processes.
+- Explain why before/after comparisons can be misleading.
+- Understand how random assignment enables causal interpretation.
+- Distinguish between business and customer perspectives when defining success.
 
 ✅ **Core Concepts to Highlight**
 
-- **What is a funnel?** 
-  - A model of how users progress through a multi-step process.
-  - It narrows from those who start to those who finish.
+- **Funnels as behavioural models**
+  - A funnel represents how users progress through a multi-step process.
+  - It narrows from those who start to those who complete.
   - Each step is a decision point: continue or abandon.
 
-- **Why do funnels matter?**  
+- **Why funnels matter**
   - Reveal where users drop off, not just how many finish.
-  - Diagnose friction in multi-step processes.
+  - Diagnose friction in specific steps.
   - Allow evaluation of both completion and effort.
 
-- **Experimental design as risk management:**  
-  - Testing before rollout reduces uncertainty and prevents company-wide friction.
-  - It limits downside risk while preserving the option to scale a successful design.
+- **Limits of observational comparisons**
+  - Before/after comparisons combine the effect of the change with other time-varying factors.
+  - External influences (e.g. marketing, seasonality, user mix) can drive apparent changes.
 
-- **Metrics beyond completion:**  
-  - Funnels expose behavioural patterns—retries, go-backs, hesitations—that a single completion rate hides.
+- **Experimental design as risk management**
+  - Testing limits exposure to potentially harmful changes.
+  - It preserves the option to scale successful designs.
+  - It enables learning about user behaviour before full rollout.
 
-- **Trade-offs:**  
-  - Improving completion may come with greater effort or time per user.
+- **Role of random assignment**
+  - Randomisation ensures groups are comparable on average.
+  - It balances both observed and unobserved factors.
+  - Differences in outcomes can be interpreted as causal effects.
 
-- **Dual perspectives:**  
-  - Company success = more conversions with manageable friction.  
-  - Customer success = an easy, trustworthy, low-effort experience.
+- **Trade-offs and perspectives**
+  - Improving completion may increase effort or time.
+  - Company: success = higher conversion with manageable friction.
+  - Customer: success = a simple, low-effort experience.
 
 💬 **Suggested In-Class Prompts**
 
-- “If you imagine the sign-up flow as a funnel, what might the steps be?”  
-- “Why does every step lose some users? What kinds of things make people drop off?”  
-- “Can a company have a high completion rate but still have a bad funnel?”  
-- “Where have you personally experienced a frustrating online process that made you restart?”
+- “What might the steps in this funnel look like in practice?”
+- “Why does every additional step lose some users?”
+- “What could cause completion rates to change even without a design improvement?”
+- “Why do we say randomisation makes groups similar on average rather than identical?”
+- “Can a process have high completion but still be a poor experience?”
 
 📌 **Common Misunderstandings**
 
-- Thinking of a funnel as a purely visual chart rather than a behavioural model.
-- Assuming users move linearly through steps—real funnels can include loops and retries.
-- Believing that higher completion automatically equals a better experience.
-- Overlooking early-step friction because final completion looks strong.
-- Confusing correlation with causation in observed funnel differences.
+- Treating funnels as purely visual charts rather than behavioural models.
+- Assuming higher completion automatically implies a better experience.
+- Believing before/after comparisons identify causal effects.
+- Thinking randomisation creates identical groups rather than comparable ones in expectation.
+- Confusing correlation with causation in observed differences.
 
 
 :::
@@ -111,20 +125,26 @@ Solution
 - Speed vs. accuracy: Are users completing quickly but providing less useful information?
 - Short-term vs. long-term engagement: Do users continue using the feature after signing up?
 - Experience vs. conversion: Does higher completion come with worse perceived quality
+- Company success means more users complete the process and access the feature, supporting engagement and revenue. Customer success means the process is quick, intuitive, and does not introduce frustration or uncertainty.
 
 #### (c)
 
 - Where users drop off (step-level insight, not just overall success/failure).  
 - How users move through the process — for example, skipping, looping, or hesitating.  
 - Severity of friction points: Identifies which steps drive the biggest loss or confusion.  
-- Improvement opportunities: Helps prioritise UX fixes that have the largest payoff.
+- Where improvements will have the greatest impact.
 
 #### (d)
 
-| Perspective | Success Definition |
-|--------------|-------------------|
-| **Company** | More users complete the process with minimal additional time or effort. |
-| **Customer** | The process is quick, intuitive, and does not introduce frustration or uncertainty. |
+- Other factors may change over time (e.g. marketing activity, seasonality, user composition).
+- Any observed change may reflect these external influences rather than the new design.
+- Before/after comparisons cannot isolate the causal effect of the change.
+
+#### (e)
+
+- Random assignment ensures the Control and Test groups are comparable on average.
+- It balances both known and unknown factors between groups.
+- Differences in outcomes can therefore be attributed to the new design rather than pre-existing differences.
 
 :::
 
