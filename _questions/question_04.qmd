@@ -1,7 +1,7 @@
 <!-- question-type: inclass -->
 ### Exercise 4: Measuring Funnel Completion
 
-Now that we've linked event-level data with the experimental information, let's create our first outcome measure — **funnel completion**.
+Now that we've linked event-level data with the experimental information, let's create our first outcome measure: **funnel completion**.
 
 Each client goes through a series of process steps (for example, `start`, `step_1`, `step_2`, `confirm`).  
 A funnel *completion* occurs if the client reaches the final step, `"confirm"`.
@@ -20,7 +20,9 @@ completion_by_visitor <-
 
 ```
 
-**(b)** Summarise completion rates by treatment.
+What does `any()` do here, and why must we aggregate from event-level data to client-level outcomes?
+
+**(b)** We want see if the new sign-up process 'works'. And so, we first need to summarise completion rates by treatment.
 
 ```{r}
 #| eval: false
@@ -35,6 +37,8 @@ completion_summary <-
     )
 
 ```
+
+What do `completes`, `total`, and `pct` represent, and why do we summarize at the treatment-group level?
 
 **(c)** Create a simple visual to compare completion rates across the two variations. Use a bar chart to display the percentage of users who completed the funnel.
 
@@ -53,6 +57,8 @@ completion_summary |>
     theme(legend.position = "none")
 ```
 
+What does this visual add beyond the table, and why is a simple chart often preferred in a business setting?
+
 **(d)** Interpret your findings. By how many percentage points did the change in sign up process influence completions?
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
@@ -68,10 +74,11 @@ Teaching Note
 
 🎯 **Learning Objective**  
 Students should:  
-- Learn how to summarise event-level data into client-level outcomes.  
-- Understand how to calculate and interpret funnel completion rates across experimental groups.  
-- Recognize the importance of clear visual and numerical comparisons when communicating results.  
-- Begin linking descriptive differences to the logic of causal effects (without formal inference yet).
+
+- Understand how to construct a user-level outcome from event-level data.
+- Interpret how completion rates are calculated and compared across treatment groups.
+- Recognise how results should be communicated to a business audience.
+- Distinguish between percentage points and percent change when interpreting results.
 
 ✅ **Core Concepts to Highlight**
 
@@ -125,7 +132,7 @@ Solution
 
 ::: {.solution-block-body}
 
-**(a)** Compute a client-level indicator for whether each client completed the funnel.
+**(a)** 
 
 ```{r}
 completion_by_visitor <- 
@@ -139,11 +146,14 @@ completion_by_visitor <-
 
 The `any(process_step == "confirm")` condition checks whether a client ever reached the "confirm" step.
 
-The grouping ensures this is calculated per client and per variation. The latter simply keeps the treatment allocation attached to the summary data
+This converts multiple event-level rows into a single user-level outcome:
 
-The resulting dataset has one row per client, indicating whether they completed (TRUE) or not (FALSE).
+- TRUE if the user completed the funnel
+- FALSE otherwise
 
-**(b)** Summarise completion rates by treatment.
+We aggregate because the data are recorded at the event level, but the outcome of interest is defined at the user level.
+
+**(b)**
 
 ```{r}
 completion_summary <- 
@@ -157,13 +167,14 @@ completion_summary <-
     )
 ```
 
-`sum(completed)` counts how many clients completed the funnel.
-
-`n()` counts how many total clients were in that variation.
-
-Dividing gives a percentage completion rate (pct) for each variation.
-
 This summary table provides the key comparison for the experiment.
+
+We have the following arguments inside `summarise()`:
+- `completes` = number of users who completed
+- `total` = number of users in each group
+- `pct` = percentage of users who completed
+
+We summarise at the treatment-group level to compare outcomes between Control and Test.
 
 **(c)** 
 ```{r}
@@ -191,6 +202,14 @@ Adding text labels helps decision-makers read exact percentages directly from th
 The difference in completion rates (in percentage points) represents the estimated effect of the new sign-up flow.
 
 Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points.
+
+We report percentage points because:
+
+- they measure absolute differences in rates
+- they are clearer and standard in business settings
+
+Because treatment was randomly assigned and balance was confirmed earlier, this difference can be interpreted as the causal effect of the new design.
+
 :::
 
 :::
