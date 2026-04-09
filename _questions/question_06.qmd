@@ -6,13 +6,14 @@ After reviewing your executive brief, one manager comments:
 > “This tells me how many users finished the sign-up flow — but I want to understand what happened in the middle.  
 > Where exactly are we gaining or losing customers?”
 
-**(a)** What does the manager mean by “mid-funnel outcomes”?  
+**(a)** What does the manager mean by “mid-funnel outcomes”?
 How are these different from overall completion rates?
 
 **(b)** Why might focusing only on completions hide important insights about customer experience or friction points?
 
-**(c)** Intuitively, how could you use the same event-level data to explore mid-funnel performance?  
-Describe two or three possible ways (e.g., visual summaries or simple metrics) without writing any code.
+**(c)** Using the same event-level data, how could you explore mid-funnel performance? Describe two or three possible approaches (e.g. visual summaries or simple metrics).
+
+How does the structure of event-level data (multiple rows per user) enable this type of analysis?
 
 **(d)** What kinds of business questions could mid-funnel analysis help answer that top-line completion rates cannot?
 
@@ -31,20 +32,45 @@ Teaching Note
 🎯 **Learning Objective** 
 Students should:
 
-- XXXXX
+- Understand how funnel analysis decomposes overall outcomes into intermediate steps.
+- Recognise the value of event-level data for analysing user behaviour within a process.
+- Explain why aggregate metrics (like completion) can mask underlying patterns.
+- Connect behavioural insights to actionable business decisions.
 
 ✅   **Core Concepts to Highlight**
 
-List them here
+- **From outcomes to process:**
+  Completion is a final outcome
+  Funnels reveal the path taken to reach (or fail to reach) that outcome
 
+- **Event-level data enables behavioural insight:**
+  Multiple rows per user capture sequences of actions
+  This allows analysis of progression, drop-off, looping or hesitation
+
+- **Where vs how many:**
+  Completion answers: how many finished?
+  Funnel analysis answers: where and why do users drop off?
+
+- **Diagnosing friction:**
+  Mid-funnel metrics identify: confusing steps, unnecessary complexity, points of abandonment
+
+- **Linking to decisions:**
+  The goal is not description — it is intervention
+  Mid-funnel insights point directly to UX improvements, prioritisation of fixes, and follow-up experiments
 
 💬 **Suggested In-Class Prompts** (if needed)
 
-List as needed
+- “Can two funnels have the same completion rate but very different user experiences?”
+- “Where would you look first if completion dropped?”
+- “What behaviour would indicate confusion rather than disengagement?”
+- “How would a product manager use this information?”
 
 📌 **Common Misunderstandings**
 
-List as needed
+- Treating funnels as just a visual rather than a behavioural model
+- Thinking completion alone is sufficient to evaluate performance
+- Forgetting that users may revisit or repeat steps
+- Describing patterns without linking them to decisions
 
 :::
 
@@ -66,14 +92,16 @@ Solution
 
 **(a)**
 “Mid-funnel outcomes” refer to the intermediate steps users take before reaching the final confirmation — such as start → step 1 → step 2 → confirm.
-Instead of only asking who finished, the manager wants to know where users drop off or loop back inside the process.
+Instead of only asking who finished (and so summarize behavior into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
 
 **(b)**
 Completion rates compress all behaviour into one number.
-If the new flow shortens some steps but adds friction elsewhere, the total completion may mask these differences.
-Understanding where users abandon or hesitate reveals why the experiment succeeded or failed.
+
+A process could improve completion overall, but still introduce friction at specific steps. 
+Without mid-funnel analysis, we cannot see where users struggle or whether improvements come at the cost of a worse experience elsewhere
 
 **(c)**
+Because each user generates multiple rows of data, we can reconstruct their path through the funnel and analyse behaviour at each stage.
 Possible intuitive approaches (that are feasible with this data):
 
 - Step-level conversion chart: show the percentage of users moving from each step to the next (e.g., 100 % start → 90 % step 1 → 75 % step 2 → 69 % confirm).
@@ -82,12 +110,14 @@ Possible intuitive approaches (that are feasible with this data):
 - Average steps completed: compare how far users get, on average, before quitting.
 
 **(d)** 
-Mid-funnel analysis helps answer:
+Mid-funnel analysis helps answer questions such as:
 
-- Which specific steps drive most attrition?
-- Are some user segments or variations struggling at certain points?
-- Does the new design make early steps easier but later ones harder?
-- Where should UX or communication changes be prioritised next?
+- Which specific steps are causing users to drop off?
+- Does the new design improve early steps but worsen later ones?
+- Are certain user groups struggling at particular stages?
+- Where should the team focus improvements for the greatest impact?
+
+These insights cannot be obtained from completion rates alone, because they require understanding behaviour within the process.
 
 :::
 
