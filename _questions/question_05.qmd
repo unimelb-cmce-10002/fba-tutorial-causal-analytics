@@ -16,22 +16,27 @@ Write this as an **executive brief** to be read and understood by managers.
 - Bullets must be written as **full sentences**.  
 - Use the writing principles from *Write Like an Amazonian* — short, declarative sentences; clarity before style.  
 - **No visible code** in the brief.  
-- Do **not** produce new analysis, tables, or figures in this section — use the results already created in Exercises 5–6.  
+- Do **not** produce new analysis, tables, or figures in this section — use the results already created in Exercise 4.  
 :::
 
 INSERT YOUR FIGURE OR TABLE HERE  
-*(For example: your completion-rate comparison chart or summary table from Exercise 5.)*
+*(For example: your completion-rate comparison chart or summary table from Exercise 4.)*
 
 ### Executive Summary
 
-3–4 sentences summarising the research question, key findings, and why they matter for the company.  
-*Hint:* State the business problem, the intervention, and the observed difference in completion rates.
+Summarise in 3-4 sentences:
+
+- The business problem
+- The intervention
+- The key result 
+- Why it matters (economic significance)
 
 ### Key Insights
 
 - Up to **3 bullets** describing what the data and analysis show.  
-- Focus on evidence — e.g., “Completion rates were 3.7 percentage points higher in the Test group.”  
-- Avoid statistical jargon; use plain, business‐relevant language.
+- Use clear, declarative statements to describe what the data show 
+- Report results in percentage points
+- Avoid technical language
 
 ### Business Implications
 
@@ -59,22 +64,30 @@ Teaching Note
 
 Students should:
 
-- Synthesise analytic findings into a concise, business-facing narrative.  
-- Translate statistical results into actionable insights for non-technical stakeholders.  
-- Distinguish between *facts*, *insights*, and *implications*.  
-- Practise structured executive communication (summary → insight → implication → action).
+- Translate analytical results into clear business communication
+- Distinguish between results, insights, and implications
+- Communicate magnitude using appropriate units (percentage points)
+- Connect analytical results to economic impact
 
 ✅ **Core Concepts to Highlight**
 
-- **Data-to-decision storytelling:** Executives want to know what happened, why it matters, and what to do — not how it was coded.  
-- **Evidence phrased in business terms:** Replace analytical detail (e.g., “effect size of 0.08 SD”) with performance language (e.g., “a measurable lift in customer conversion”).  
-- **Structure matters:**  
-  - *Executive Summary* = the key message in 3–4 sentences.  
-  - *Key Insights* = what the data reveal (specific, declarative).  
-  - *Business Implications* = why it matters strategically.  
-  - *Recommended Actions* = what should happen next.  
-- **Tone:** Confident, factual, and audience-aware. Write as if the VP of Product will skim it between meetings.  
-- **One exhibit only:** Encourage visual economy — one figure or table that reinforces the story.
+- **Data → decision:**
+  Executives care about: what happened, why it matters, what to do next
+  Not how the analysis was done
+
+- **Units and clarity:**
+  Use percentage points, not percent change
+  Avoid statistical jargon
+  Prefer concrete, interpretable language
+
+- **Structure discipline:**
+  Summary → insight → implication → action
+  Each section serves a different purpose
+  Avoid repetition across sections
+
+- **Scale and impact:**
+  Reinforce earlier insight: small effects can be large at scale
+  Encourage students to connect: % change → number of users → business value
 
 💬 **Suggested In-Class Prompts**
 
@@ -86,14 +99,11 @@ Students should:
 
 📌 **Common Misunderstandings**
 
-- **Listing results instead of interpreting them.**  
-  Students often repeat metrics rather than explaining what they *mean* for the business.  
-- **Overusing technical terms.**  
-  Phrases like “significant at p < 0.05” or “standard deviation units” should be translated into plain English.  
-- **Neglecting implications.**  
-  A good brief doesn’t stop at “what happened” — it ends with “so what?” and “what next?”.  
-- **Forgetting scale.**  
-  Remind students that small effects can have big business value; connect percentage points to customer counts or revenue potential.  
+- Repeating numbers without interpretation
+- Using percent instead of percentage points
+- Including technical language (e.g. SD units)
+- Skipping implications
+- Writing vague recommendations
 
 
 :::
@@ -113,38 +123,48 @@ Solution
 :::
 
 ::: {.solution-block-body}
-(Not the unique correct answer)
-### Example Executive Brief — Funnel Completion A/B Test
 
-INSERT YOUR FIGURE OR TABLE HERE  
-*(Example: Bar chart showing 65.6 % vs 69.3 % completion rates.)*
+There is no unique correct answer, but the following is a strong example of how to answer this question.
 
-### Executive Summary (5 pts)
+### Executive Summary 
 
-The company tested a new sign-up flow for existing users who needed to activate access to the new personalised-insights dashboard.
-Random assignment split users between the **Control** (old flow) and **Test** (new flow).
-The new flow increased completion rates from **65.6 % to 69.3 %**, a **3.7 percentage-point** or **5.6 %** relative improvement. 
-This increase represents a meaningful uplift at scale and validates the design changes introduced.
+```{r}
+#| echo: false
+completion_summary |> 
+    ggplot(aes(x = variation, y = pct, fill = variation)) +
+    geom_col() +
+    geom_text(aes(label = round(pct, 1)), vjust = -0.5) +
+    labs(
+        title = "Funnel Completion Rate by Variation",
+        x = "Variation",
+        y = "Completion Rate (%)"
+    ) +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
 
-### Key Insights (5 pts)
+We tested a new sign-up flow required for users to access a personalised insights dashboard. 
+We randomly assigned users to the existing (Control) or redesigned (Test) flow. 
+The new flow increased completion rates from 65.6% to 69.3%, a 3.7 percentage-point improvement. 
+While modest, this uplift is meaningful at scale and supports adopting the new design.
 
-- The **new sign-up flow increased completion rates by 3.7 percentage points**, moving nearly 6 % more users through the funnel.  
-- The effect is **consistent with high-performing digital experiments** — modest in size but highly impactful across large user base.  
-- Incremental UX improvements can deliver measurable gains in customer conversion, underscoring the ROI of ongoing experimentation.
+### Key Insights
+
+- Completion rates were 3.7 percentage points higher in the Test group than in Control.
+- This represents a consistent, real-world improvement typical of successful online experiments.
+- The results suggest the redesigned flow reduces friction and improves user progression through the funnel.
 
 ### Business Implications
 
-- A smoother sign-up experience helps more customers access premium features sooner, improving perceived value and engagement.  
-- Higher completion reduces churn risk among existing users who might otherwise abandon the process.  
-- Demonstrates that small UX improvements can deliver measurable performance gains in high-volume digital channels.
-
+- Higher completion enables more users to access the dashboard, increasing engagement and product usage.
+- Even small improvements in conversion can generate large gains when applied across a large user base.
+- Improved user experience reduces the risk of drop-off during critical onboarding steps.
 
 ### Recommended Actions
 
-- **Roll out** the new sign-up process to all users, prioritising markets with similar user profiles.  
-- **Monitor** long-term engagement and retention metrics to confirm sustained impact beyond initial sign-up.  
-- (Maybe) **Design a follow-up test** to identify which interface changes (layout, copy, or step order) drove the largest improvement.
-
+- Roll out the new sign-up flow to all users.
+- Monitor downstream metrics (e.g. engagement, retention) to confirm sustained impact.
+- Conduct follow-up tests to identify which design elements drove the improvement.
 
 :::
 
