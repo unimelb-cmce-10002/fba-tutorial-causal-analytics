@@ -7,7 +7,7 @@ You have two datasets:
 - `ab_test_demographics`: information about each client.  
 - `ab_test_experiment_clients`: information on which clients were assigned to the **Control** or **Test** variation.
 
-Our goal is to merge these datasets and check whether allocation to treatment and control groups is balanced across deomgraphic characteristics.
+Our goal is to merge these datasets and check whether allocation to treatment and control groups is balanced across demographic characteristics.
 
 **(a)** Load the two datasets into R by completing the code below:
 

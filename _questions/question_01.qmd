@@ -7,7 +7,7 @@ The company has introduced a new personalised insights dashboard — but to use 
 This is a risky move. Each additional step in the customer journey can introduce friction and reduce completion.
 
 Completion is not just a UX metric — it is directly tied to financial performance.
-If fewer users complete the process, fewer access the new feature, reducing engagement, retentiosn, and ultimately revenue.
+If fewer users complete the process, fewer access the new feature, reducing engagement, retention, and ultimately revenue.
 At scale, even small drops in completion can translate into large losses in customer lifetime value.
 
 In product analytics, we often represent a sign-up process as a **funnel** — a sequence of steps where users either continue or drop out at each stage (for example, from start to confirm).
@@ -21,7 +21,7 @@ If we observe differences in completion rates or drop-off across steps, an impor
 
 **(c)** What can a funnel reveal about customer behaviour that a simple completion rate cannot?
 
-**(d)** Why is it risky to compare completion rates before and after introducing the new sign-up process?
+**(d)** Rather than run an experiment, the company could just implement the new sign-up process for all users going forward and then compare completion rates before and after this change. Why is this problematic?
 
 **(e)** How does random assignment in an A/B test help us isolate the effect of the new design?
 

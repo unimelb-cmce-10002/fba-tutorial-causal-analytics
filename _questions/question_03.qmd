@@ -1,7 +1,8 @@
 <!-- question-type: inclass -->
 ### Exercise 3: Working with Web Log Data
 
-Now that you’ve checked that users were randomly assigned to the Test and Control groups, it's time to examine what they actually did inside the experiment.  
+Now that you’ve checked that users were randomly assigned to the Test and Control groups, it's time to examine what they actually did inside the experiment. 
+
 In this step, you’ll work with **event-level data** — information about each time a user interacted with the sign-up process.
 
 **(a)** Load and inspect the web log data. The data are split across two files.  Run the code below to combine them into one dataset.
