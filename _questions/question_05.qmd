@@ -1,51 +1,48 @@
 <!-- question-type: inclass -->
-### Exercise 5: Comparing Outcomes Across Variations
+### Exercise 5: Communicating Experimental Insights
 
-We've now calculated completion rates for each variation.  
-In this exercise, you’ll quantify how much higher (or lower) the completion rate was in the Test variation compared to the Control group — and reflect on whether the difference is meaningful.
+Now we need to translate your analytical results into a short executive brief written for a business audience.
 
-**(a)** Compute the **difference in percentage points** between the Test and Control variations.
+Your goal is to communicate *what was tested*, *what happened*, and *what the company should do next* — clearly and persuasively, without technical detail.
 
-```{r}
-#| eval: false
-completion_summary |> 
-    summarise(
-        diff_pct_points = YOUR_CODE
-    )
-```
+::: {.callout-warning}
+### Instructions
 
-**(b)** Compute the percent change in completion relative to the Control group.
+**Length:** 400 words.  
+**Exhibit:** 1 table **or** figure.  
 
-```{r}
-#| eval: false
-completion_summary |> 
-    mutate(
-        YOUR_CODE
-    )
-```
+Write this as an **executive brief** to be read and understood by managers.
 
-**(c)**  You already have the difference in completion rates from part (a).  
-Let’s use that value directly and divide it by the standard deviation of completion in the Control group to see how large the effect is in practical terms.
+- Bullets must be written as **full sentences**.  
+- Use the writing principles from *Write Like an Amazonian* — short, declarative sentences; clarity before style.  
+- **No visible code** in the brief.  
+- Do **not** produce new analysis, tables, or figures in this section — use the results already created in Exercises 5–6.  
+:::
 
-```{r}
-#| eval: false
-# pull the numeric difference from part (a)
-diff_rate <- completion_diff |> pull(diff_pct_points) / 100
+INSERT YOUR FIGURE OR TABLE HERE  
+*(For example: your completion-rate comparison chart or summary table from Exercise 5.)*
 
-# compute Control group’s SD
-control_sd <- 
-    completion_by_visitor |> 
-    YOUR_CODE|> 
-    YOUR_CODE(sd_rate = YOUR_CODE) |> 
-    pull(sd_rate)
+### Executive Summary
 
-# difference in standard-deviation units of the control group
-diff_sd_units <- diff_rate / control_sd
-print(diff_sd_units)
+3–4 sentences summarising the research question, key findings, and why they matter for the company.  
+*Hint:* State the business problem, the intervention, and the observed difference in completion rates.
 
-```
+### Key Insights
 
-**(d)** Would you consider this a small, moderate, or large effect in a typical online experiment? Explain Your answer.
+- Up to **3 bullets** describing what the data and analysis show.  
+- Focus on evidence — e.g., “Completion rates were 3.7 percentage points higher in the Test group.”  
+- Avoid statistical jargon; use plain, business‐relevant language.
+
+### Business Implications
+
+- Up to **3 bullets** on why these findings matter for the organisation.  
+- Connect the analytics result back to strategic goals.
+
+### Recommended Actions
+
+- Up to **3 bullets** outlining clear, actionable next steps.  
+- Recommendations should be specific, realistic, and aligned with business priorities.
+
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -58,68 +55,46 @@ Teaching Note
 
 ::: {.teaching-block-body}
 
-🎯 **Learning Objective**  
-Students should:  
-- Learn how to compute and interpret absolute (percentage-point) and relative (% change) differences between experimental groups.  
-- Understand what it means to express an effect size in standard-deviation units.  
-- Begin to reason about *practical significance* (is it large enough to matter?) rather than statistical significance.
+🎯 **Learning Objective**
 
+Students should:
+
+- Synthesise analytic findings into a concise, business-facing narrative.  
+- Translate statistical results into actionable insights for non-technical stakeholders.  
+- Distinguish between *facts*, *insights*, and *implications*.  
+- Practise structured executive communication (summary → insight → implication → action).
 
 ✅ **Core Concepts to Highlight**
 
-- **Percentage points vs. percent change:**  
-  Reinforce the distinction — 3.7 *percentage points* ≠ 3.7 *percent increase*.  
-  Percentage points measure **absolute change**, while percent change measures **relative improvement**.
-
-- **Practical significance:**  
-  Statistical tests aren’t used here, but we can still ask: *Is the effect meaningful?*  
-  A 3–4 p.p. lift might sound small but can be impactful at scale (e.g., in millions of sign-ups).
-
-- **Standard deviation interpretation:**  
-  Expressing differences in SD units (≈ 0.08) offers a benchmark for magnitude:  
-  - 0.1 SD ≈ small, 0.3 SD ≈ moderate, 0.5 SD ≈ large (rough guide).  
-  This introduces the idea of *effect size* as a generalizable measure.
-
-- **Binary outcome variance:**  
-  Highlight that SD for completion = √(p × (1 − p)) and why it matters when comparing scales of effects across contexts.
-
-### What Counts as a Big Effect?
-
-| Setting | Typical Range | Notes |
-|----------|----------------|-------|
-| **Online field experiments (A/B tests)** | 1–5 p.p. (≈ 0.02–0.10 SD) | Small by statistical standards but **commercially meaningful** at scale. |
-| **Consumer-behaviour / lab experiments** | 5–20 p.p. (≈ 0.3–0.6 SD) | Larger effects due to **controlled environments** and more salient manipulations. |
-
-**Why field effects look smaller:**
-- High environmental noise  
-- Real users, real distractions  
-- Behavioural (not attitudinal) outcomes  
-
-**Why lab effects look larger:**
-- Controlled setting, short-term tasks  
-- Lower variance and stronger stimuli  
-
-> A 3.7 p.p. lift (≈ 0.08 SD) is **typical for a good online experiment** — modest statistically, substantial operationally.
+- **Data-to-decision storytelling:** Executives want to know what happened, why it matters, and what to do — not how it was coded.  
+- **Evidence phrased in business terms:** Replace analytical detail (e.g., “effect size of 0.08 SD”) with performance language (e.g., “a measurable lift in customer conversion”).  
+- **Structure matters:**  
+  - *Executive Summary* = the key message in 3–4 sentences.  
+  - *Key Insights* = what the data reveal (specific, declarative).  
+  - *Business Implications* = why it matters strategically.  
+  - *Recommended Actions* = what should happen next.  
+- **Tone:** Confident, factual, and audience-aware. Write as if the VP of Product will skim it between meetings.  
+- **One exhibit only:** Encourage visual economy — one figure or table that reinforces the story.
 
 💬 **Suggested In-Class Prompts**
 
-- “Why do we prefer to talk about *percentage points* instead of just percentages here?”  
-- “Does a 3.7 p.p. difference sound small or large to you? What if this site has a million monthly visitors?”  
-- “What’s the intuition behind dividing by the standard deviation?”  
-- “Can you think of a context where a small statistical effect might have a large business impact?”
+- “What separates a *data fact* from a *business insight*?”  
+- “How could you phrase this same result so that a non-analyst understands why it matters?”  
+- “If you were the VP of Product, which single line here would convince you to act?”  
+- “What verbs sound decisive and executive? (‘increased,’ ‘reduced,’ ‘enabled,’ ‘drove’).”  
+- “How might you reword a technical statement like ‘0.08 SD difference’ into something a manager actually remembers?”
 
 📌 **Common Misunderstandings**
 
-- Confusing “percent change” and “percentage points.”  
-- Assuming that a small SD effect automatically means “not important.”  
-- Treating a descriptive difference as proof of causality (that’s the next step).  
-- Thinking that SD units are only for continuous variables — they apply here because `completed` is coded 0/1.
+- **Listing results instead of interpreting them.**  
+  Students often repeat metrics rather than explaining what they *mean* for the business.  
+- **Overusing technical terms.**  
+  Phrases like “significant at p < 0.05” or “standard deviation units” should be translated into plain English.  
+- **Neglecting implications.**  
+  A good brief doesn’t stop at “what happened” — it ends with “so what?” and “what next?”.  
+- **Forgetting scale.**  
+  Remind students that small effects can have big business value; connect percentage points to customer counts or revenue potential.  
 
-🧠 **Instructor Notes**
-
-- Emphasize *scale and impact*: in digital experiments, small average effects can compound massively.  
-- Keep computation light — the conceptual takeaway is what matters.  
-- Encourage discussion about what counts as a “big effect” in different industries (marketing, fintech, health).
 
 :::
 
@@ -138,61 +113,38 @@ Solution
 :::
 
 ::: {.solution-block-body}
+(Not the unique correct answer)
+### Example Executive Brief — Funnel Completion A/B Test
 
-**(a)** 
-```{r}
-completion_diff <- 
-    completion_summary |> 
-    summarise(
-        diff_pct_points = diff(pct)
-    )
+INSERT YOUR FIGURE OR TABLE HERE  
+*(Example: Bar chart showing 65.6 % vs 69.3 % completion rates.)*
 
-completion_diff
-```
+### Executive Summary (5 pts)
 
-`diff(pct)` subtracts the first value (Control) from the second (Test).
+The company tested a new sign-up flow for existing users who needed to activate access to the new personalised-insights dashboard.
+Random assignment split users between the **Control** (old flow) and **Test** (new flow).
+The new flow increased completion rates from **65.6 % to 69.3 %**, a **3.7 percentage-point** or **5.6 %** relative improvement. 
+This increase represents a meaningful uplift at scale and validates the design changes introduced.
 
-Example output: 3.7, meaning the Test group’s completion rate is 3.7 percentage points higher.
+### Key Insights (5 pts)
 
-This gives an absolute difference in the same units as the rates (percentage points, not percent).
+- The **new sign-up flow increased completion rates by 3.7 percentage points**, moving nearly 6 % more users through the funnel.  
+- The effect is **consistent with high-performing digital experiments** — modest in size but highly impactful across large user base.  
+- Incremental UX improvements can deliver measurable gains in customer conversion, underscoring the ROI of ongoing experimentation.
 
-**(b)**
-```{r}
-completion_summary |> 
-    mutate(
-        pct_change = (pct - first(pct)) / first(pct) * 100
-    )
-```
+### Business Implications
 
-Calculates the relative increase over the Control baseline.
+- A smoother sign-up experience helps more customers access premium features sooner, improving perceived value and engagement.  
+- Higher completion reduces churn risk among existing users who might otherwise abandon the process.  
+- Demonstrates that small UX improvements can deliver measurable performance gains in high-volume digital channels.
 
-Example:
 
-(69.3−65.6)/65.6×100≈5.6%
+### Recommended Actions
 
-Interpretation: The Test variation improved completions by roughly 5.6 percent relative to baseline.
+- **Roll out** the new sign-up process to all users, prioritising markets with similar user profiles.  
+- **Monitor** long-term engagement and retention metrics to confirm sustained impact beyond initial sign-up.  
+- (Maybe) **Design a follow-up test** to identify which interface changes (layout, copy, or step order) drove the largest improvement.
 
-**(c)** 
-```{r}
-# pull the numeric difference from part (a)
-diff_rate <- completion_diff |> pull(diff_pct_points) / 100
-
-# compute Control group’s SD
-control_sd <- 
-    completion_by_visitor |> 
-    filter(variation == "Control") |> 
-    summarise(sd_rate = sd(completed)) |> 
-    pull(sd_rate)
-
-# difference in SD units
-diff_sd_units <- diff_rate / control_sd
-print(diff_sd_units)
-```
-
-**(d)**
-The Test variation increased completions by 3.7 percentage points, or about 5.6 percent relative to baseline.
-
-In standard-deviation terms (~0.08 SDs), the effect is typical for A/B tests in digital environments, where even modest improvements can be valuable at scale.
 
 :::
 

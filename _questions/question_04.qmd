@@ -59,7 +59,43 @@ completion_summary |>
 
 What does this visual add beyond the table, and why is a simple chart often preferred in a business setting?
 
-**(d)** Interpret your findings. By how many percentage points did the change in sign up process influence completions?
+**(d)** Complete the code below to compute and interpret the 'effect' of the new sign-up process on completion. 
+
+```{r}
+#| eval: false
+completion_diff <- 
+    completion_summary |> 
+    summarise(diff_pct_points = YOUR_CODE)
+
+completion_summary |> 
+    mutate(
+        pct_change = YOUR_CODE
+    )
+```
+
+By how many percentage points did the change in sign up process influence completions? What is the difference in percentage points and percent change, and why do we typically report percentage points in this setting?
+
+**(e)** Complete the code below to express the effect size in standard deviation units.
+
+```{r}
+#| eval: false
+diff_rate <- completion_diff |> 
+    pull(diff_pct_points) / 100
+
+control_sd <- 
+    completion_by_visitor |> 
+    YOUR_CODE |> 
+    YOUR_CODE(sd_rate = YOUR_CODE) |> 
+    pull(sd_rate)
+
+diff_sd_units <- diff_rate / control_sd
+print(diff_sd_units)
+```
+
+What does dividing by the standard deviation tell us about the size of the effect? What does this help us better understand?
+
+**(f)** Would you consider this a small, moderate, or large effect in a typical online experiment? Explain your answer.
+
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -75,44 +111,52 @@ Teaching Note
 🎯 **Learning Objective**  
 Students should:  
 
-- Understand how to construct a user-level outcome from event-level data.
-- Interpret how completion rates are calculated and compared across treatment groups.
-- Recognise how results should be communicated to a business audience.
-- Distinguish between percentage points and percent change when interpreting results.
+- Construct a user-level outcome from event-level data.
+- Compute and compare completion rates across treatment groups.
+- Distinguish between percentage points and percent change.
+- Interpret effect size in both statistical and economic terms.
+- Evaluate whether an effect is meaningful in a business context.
 
 ✅ **Core Concepts to Highlight**
 
-- **Aggregation and granularity:**  
-  Explain how summarising event-level actions to the client level captures whether each user “succeeded” in completing the funnel.
+- **Event → outcome:**
+  Web log data record actions, not outcomes.
+  Aggregation is required to define whether a user completed the funnel.
+  `any()` detects whether completion occurred at least once.
 
-- **Outcome definition:**  
-  The choice of “completion” as the outcome connects directly to the business question: *Did the new sign-up flow help more users finish?*
+- **Measurement and communication:**
+  Completion rates summarise performance across users.
+  Group-level summaries enable comparison between Control and Test.
+  Simple visuals communicate differences more clearly than tables.
 
-- **Descriptive comparison:**  
-  Computing and plotting completion rates is the first step toward evaluating impact — but these are still *descriptive statistics*, not causal claims.
+- **Units of comparison:**
+  Percentage points measure absolute differences in rates.
+  Percent change measures relative improvement.
+  In product and business settings, percentage points are the default.
 
-- **Percentage vs. percentage points:**  
-  A difference between 65.6 % and 69.3 % is **3.7 percentage points**, not “3.7 % improvement.”  
-  Reinforce this distinction — it’s critical for clean business communication.
+- **Effect size (statistical interpretation):**
+  Dividing by the standard deviation expresses the effect in SD units.
+  This provides a scale-free measure of magnitude.
+  Typical online experiments produce small effects (≈ 0.02–0.10 SD).
 
-- **Visualization for stakeholders:**  
-  A simple bar chart makes the result accessible to non-technical audiences and aligns with how analytics teams typically communicate A/B test results.
+- **Economic significance (business interpretation):**
+  Small statistical effects can still be valuable at scale.
+  A back-of-the-envelope calculation connects to percentage-point changes to economic value
 
 💬 **Suggested In-Class Prompts**
 
-- “Why do we calculate this at the *client* level instead of the *event* level?”  
-- “If we see a 3.7 percentage-point difference, is that large or small in this context?”  
-- “How might we explain this result to a product manager in one sentence?”  
-- “What are some reasons the Test group might outperform the Control beyond the design change itself?”  
+- “Why do we report percentage points rather than percent change?”
+- “Does a 3–4 p.p. lift matter if the platform has millions of users?”
+- “What does 0.08 SD mean in practical terms?”
+- “Why are small effects common in real-world experiments?”
+- “How would you explain this result to a product manager in one sentence?”
 
 📌 **Common Misunderstandings**
 
-- Confusing *percentage points* (absolute difference) with *percent change* (relative difference).  
-- Forgetting that descriptive differences alone don’t confirm causality.  
-- Assuming visualizations replace numerical summaries rather than complement them.  
-- Interpreting the `any()` function incorrectly (thinking it counts events instead of checking existence).  
-- Ignoring potential data issues such as missing or duplicated user IDs when summarising.
-
+- Confusing percentage points with percent change.
+- Interpreting small SD effects as unimportant.
+- Focusing only on statistical magnitude rather than economic impact.
+- Forgetting that causal interpretation depends on earlier steps (randomisation and balance).
 
 :::
 
@@ -197,11 +241,22 @@ Bars make it easy to see which variation performs better and by how much.
 
 Adding text labels helps decision-makers read exact percentages directly from the chart.
 
-**(d) ** Interpretation
+**(d)** 
+
+```{r}
+completion_diff <- 
+    completion_summary |> 
+    summarise(diff_pct_points = diff(pct))
+
+completion_summary |> 
+    mutate(
+        pct_change = (pct - first(pct)) / first(pct) * 100
+    )
+```
 
 The difference in completion rates (in percentage points) represents the estimated effect of the new sign-up flow.
 
-Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points.
+Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points, or ~5.6%.
 
 We report percentage points because:
 
@@ -209,6 +264,46 @@ We report percentage points because:
 - they are clearer and standard in business settings
 
 Because treatment was randomly assigned and balance was confirmed earlier, this difference can be interpreted as the causal effect of the new design.
+
+**(e)** 
+
+```{r}
+diff_rate <- completion_diff |>
+    pull(diff_pct_points) / 100
+
+control_sd <- 
+    completion_by_visitor |> 
+    filter(variation == "Control") |> 
+    summarise(sd_rate = sd(completed)) |> 
+    pull(sd_rate)
+
+diff_sd_units <- diff_rate / control_sd
+print(diff_sd_units)
+```
+
+This expresses the treatment effect in standard deviation units.
+
+- `control_sd` measures the natural variation in completion outcomes.
+- Dividing the effect by the SD shows how large the effect is relative to that variation.
+
+An effect of around 0.08 SD is small in statistical terms but typical for online experiments.
+
+This provides a scale-free measure of magnitude, helping us judge whether the effect is meaningful beyond just the raw percentage-point difference.
+
+**(f)**
+
+The effect is small in statistical terms (~0.08 SD), but can still be economically meaningful.
+
+For example:
+
+- If 1,000,000 users go through the process, a 3.7 p.p. increase yields ≈ 37,000 additional completions.
+
+If each completion is worth:
+
+- $10 → ≈ $370,000
+- $50 → ≈ $1.85 million
+
+Even modest improvements in conversion can therefore generate large gains at scale.
 
 :::
 

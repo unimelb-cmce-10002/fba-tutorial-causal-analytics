@@ -34,4 +34,3 @@ You will discuss these exercises in class with your peers in small groups and wi
 
 {{< include _questions/question_06.qmd >}}
 
-{{< include _questions/question_07.qmd >}}
