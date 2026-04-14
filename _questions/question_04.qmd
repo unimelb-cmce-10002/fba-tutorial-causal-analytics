@@ -59,15 +59,18 @@ completion_summary |>
 
 What does this visual add beyond the table, and why is a simple chart often preferred in a business setting?
 
-**(d)** Complete the code below to compute and interpret the 'effect' of the new sign-up process on completion. 
+**(d)** Complete the code below to compute and interpret the 'effect' of the new sign-up process on completion. Use `lag()` to compare the Test group to the previous row after ordering the summary table.
 
 ```{r}
 #| eval: false
 completion_diff <- 
     completion_summary |> 
+    arrange(YOUR_CODE) |> 
+    mutate(diff_pct_points = YOUR_CODE) |> 
     summarise(diff_pct_points = YOUR_CODE)
 
 completion_summary |> 
+    arrange(YOUR_CODE) |> 
     mutate(
         pct_change = YOUR_CODE
     )
@@ -133,6 +136,7 @@ Students should:
   Percentage points measure absolute differences in rates.
   Percent change measures relative improvement.
   In product and business settings, percentage points are the default.
+  If students use `lag()`, they must order the rows first so the comparison is meaningful.
 
 - **Effect size (statistical interpretation):**
   Dividing by the standard deviation expresses the effect in SD units.
@@ -247,17 +251,22 @@ Adding text labels helps decision-makers read exact percentages directly from th
 ```{r}
 completion_diff <- 
     completion_summary |> 
-    summarise(diff_pct_points = diff(pct))
+    arrange(variation) |> 
+    mutate(diff_pct_points = pct - lag(pct)) |> 
+    summarise(diff_pct_points = last(diff_pct_points))
 
 completion_summary |> 
+    arrange(variation) |> 
     mutate(
-        pct_change = (pct - first(pct)) / first(pct) * 100
+        pct_change = (pct - lag(pct)) / lag(pct) * 100
     )
 ```
 
 The difference in completion rates (in percentage points) represents the estimated effect of the new sign-up flow.
 
-Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points, or ~5.6%.
+After ordering the rows so that Control comes before Test, `lag()` uses the Control completion rate as the comparison point for the Test row.
+
+If Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points, or ~5.6%.
 
 We report percentage points because:
 
