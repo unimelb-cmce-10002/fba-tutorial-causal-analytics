@@ -8,7 +8,7 @@ Welcome! This repository helps you build **clean, student-facing tutorials** for
 _quarto-r-questions.yml     # YAML for rendering only r-questions
 _quarto-r-solutions.yml     # YAML for rendering only r-solutions
 _quarto-r-teaching-guide.yml# YAML for rendering only r-teaching-guide
-make_student.sh             # Script to generate clean student version
+make_students.sh            # Script to generate clean student version
 render.sh                   # Renders all instructor profiles and student file
 tutorial.qmd                # Master tutorial (uses includes + profiles)
 _questions/                 # Individual question files (one per exercise)
@@ -100,7 +100,7 @@ The file `tutorial.qmd` is the **master document** rendered by each Quarto profi
     ```
 - It is rendered differently depending on the profile used (e.g. `r-solutions` will show answers, `r-teaching-guide` will show teaching notes)
 
-Note: `tutorial.qmd` is not used when generating `tutorial_student.qmd`. The student version is assembled separately using `make_student.sh`.
+Note: `tutorial.qmd` is not used when generating `tutorial_student.qmd`. The student version is assembled separately using `make_students.sh`.
 
 ## ▶️ Build and Render the Tutorial
 
@@ -119,7 +119,7 @@ This will:
 - Then run the student cleaner script:
 
 ```bash
-bash make_student.sh
+bash make_students.sh
 ```
 
 This generates `tutorial_student.qmd`, which includes:
