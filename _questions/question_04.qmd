@@ -76,6 +76,8 @@ completion_summary |>
     )
 ```
 
+Because the Control row has no previous row, the `lag()` result for Control will be missing. Report the Test row's difference.
+
 By how many percentage points did the change in sign up process influence completions? What is the difference in percentage points and percent change, and why do we typically report percentage points in this setting?
 
 **(e)** Complete the code below to express the effect size in standard deviation units.

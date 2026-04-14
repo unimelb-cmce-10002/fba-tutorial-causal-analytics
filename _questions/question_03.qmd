@@ -17,7 +17,7 @@ weblog <-
     weblogs_files |> 
     map_df(read_csv)
 
-glimpse(YOURCODE)
+glimpse(YOUR_CODE)
 ```
 
 What problem does `map_df()` solve here, and why might the data be stored across multiple files?
@@ -32,12 +32,12 @@ Clean the data to remove duplicate rows by completing the code below:
 #| eval: false
 weblog_clean <- 
     weblog |> 
-    YOURCODE
+    YOUR_CODE
 ```
 
 What might happen if we failed to remove duplicates before computing outcomes?
 
-**(d)** Merge the cleaned web log data with the dataset that contains information on which clients are assigned to each treatment. Drop any observations that are not assigned to either "Test" or "Control".
+**(d)** Merge the cleaned web log data with the dataset that contains information on which clients are assigned to each treatment. Drop any observations with missing treatment assignments.
 
 ```{r}
 #| eval: false

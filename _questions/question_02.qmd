@@ -13,9 +13,9 @@ Our goal is to merge these datasets and check whether allocation to treatment an
 
 ```{r}
 #| eval: false
-demogs <- YOURCODE 
+demogs <- YOUR_CODE 
 treatment <- 
-    YOURCODE |> 
+    YOUR_CODE |> 
     clean_names()
 ```
 
@@ -27,7 +27,7 @@ What problem does `clean_names()` solve, and how might inconsistent column names
 #| eval: false
 demogs <- 
     demogs |>
-    YOURCODE
+    YOUR_CODE
 
 ```
 
@@ -38,18 +38,18 @@ What does a join do in this context, and why must these datasets be combined bef
 ```{r}
 #| eval: false
 demogs |> 
-    YOURCODE
+    YOUR_CODE
 ```
 
 What is this step checking, and why is it important to verify these values before proceeding?
 
-Second, use `drop_na()` to remove rows with missing or invalid treatment labels.
+Second, use `drop_na()` to remove rows with missing treatment labels.
 
 ```{r}
 #| eval: false
 demogs <-
     demogs |> 
-    YOURCODE
+    YOUR_CODE
 ```
 
 Why do we drop these observations?
