@@ -30,12 +30,12 @@ The analyst’s role is not just to determine whether a change worked, but to ex
 
 1. Quantify the effect of the new variation on completion rates.  
 2. Interpret the magnitude of the improvement — is it large, small, or somewhere in between? 
-3. Explore additional metrics to understand user behaviour inside the sign up process.  
+3. Explore additional metrics to understand user behaviour inside the sign-up process.  
 4. Prepare an executive summary explaining whether the new sign-up process should be rolled out to all customers.
 
 ### Loading R Packages
 
-Here's the R packages we will need to complete the exercises: 
+Here are the R packages we will need to complete the exercises: 
 
 ```{r}
 #| message: false

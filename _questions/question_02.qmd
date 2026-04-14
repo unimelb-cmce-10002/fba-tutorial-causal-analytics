@@ -54,7 +54,7 @@ demogs <-
 
 Why do we drop these observations?
 
-**(d)** In a well-designed experiment, each variation should include comparable types of users. How does connect back to the idea of random assignment?
+**(d)** In a well-designed experiment, each variation should include comparable types of users. How does this connect back to the idea of random assignment?
 
 **(e)** Complete the code below to compare demographic compositions of users across treatments.
 
@@ -83,7 +83,7 @@ Students should:
 
 - Learn how to combine demographic and experimental‐assignment data to prepare for analysis.  
 - Understand why checking group balance is essential for credible experimental inference.  
-- Recognize how random assignment supports fair comparison between treatment and control groups.  
+- Recognise how random assignment supports fair comparison between treatment and control groups.  
 - Connect data‐cleaning steps (joins, missing values) to experimental design logic.
 
 ✅ **Core Concepts to Highlight**

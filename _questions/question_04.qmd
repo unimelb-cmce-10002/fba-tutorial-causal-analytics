@@ -22,7 +22,7 @@ completion_by_visitor <-
 
 What does `any()` do here, and why must we aggregate from event-level data to client-level outcomes?
 
-**(b)** We want see if the new sign-up process is more effective. And so, we first need to summarise completion rates by treatment.
+**(b)** We want to see if the new sign-up process is more effective. And so, we first need to summarise completion rates by treatment.
 
 ```{r}
 #| eval: false

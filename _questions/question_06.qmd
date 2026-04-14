@@ -93,7 +93,7 @@ Solution
 **(a)**
 
 “Mid-funnel outcomes” refer to the intermediate steps users take before reaching the final confirmation — such as start → step 1 → step 2 → confirm.
-Instead of only asking who finished (and so summarize behavior into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
+Instead of only asking who finished (and so summarise behaviour into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
 
 **(b)**
 
