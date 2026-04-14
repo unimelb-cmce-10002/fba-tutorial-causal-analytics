@@ -112,14 +112,14 @@ Solution
 :::
 
 ::: {.solution-block-body}
-#### (a)
+**(a)**
 
 - A/B testing reduces the risk of introducing a worse experience.
 - It allows decisions to be based on observed behaviour rather than assumptions.
 - It protects customers from large-scale exposure to a poor design.
 - It generates insight into where and why users drop off.
 
-#### (b)
+**(b)**
 
 - Completion vs. friction: Does the new flow increase completion at the cost of more effort?
 - Speed vs. accuracy: Are users completing quickly but providing less useful information?
@@ -127,20 +127,20 @@ Solution
 - Experience vs. conversion: Does higher completion come with worse perceived quality
 - Company success means more users complete the process and access the feature, supporting engagement and revenue. Customer success means the process is quick, intuitive, and does not introduce frustration or uncertainty.
 
-#### (c)
+**(c)**
 
 - Where users drop off (step-level insight, not just overall success/failure).  
 - How users move through the process — for example, skipping, looping, or hesitating.  
 - Severity of friction points: Identifies which steps drive the biggest loss or confusion.  
 - Where improvements will have the greatest impact.
 
-#### (d)
+**(d)**
 
 - Other factors may change over time (e.g. marketing activity, seasonality, user composition).
 - Any observed change may reflect these external influences rather than the new design.
 - Before/after comparisons cannot isolate the causal effect of the change.
 
-#### (e)
+**(e)**
 
 - Random assignment ensures the Control and Test groups are comparable on average.
 - It balances both known and unknown factors between groups.

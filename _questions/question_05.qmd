@@ -72,22 +72,22 @@ Students should:
 ✅ **Core Concepts to Highlight**
 
 - **Data → decision:**
-  Executives care about: what happened, why it matters, what to do next
-  Not how the analysis was done
+  - Executives care about: what happened, why it matters, what to do next.
+  - Not how the analysis was done.
 
 - **Units and clarity:**
-  Use percentage points, not percent change
-  Avoid statistical jargon
-  Prefer concrete, interpretable language
+  - Use percentage points, not percent change.
+  - Avoid statistical jargon.
+  - Prefer concrete, interpretable language.
 
 - **Structure discipline:**
-  Summary → insight → implication → action
-  Each section serves a different purpose
-  Avoid repetition across sections
+  - Summary → insight → implication → action.
+  - Each section serves a different purpose.
+  - Avoid repetition across sections.
 
 - **Scale and impact:**
-  Reinforce earlier insight: small effects can be large at scale
-  Encourage students to connect: % change → number of users → business value
+  - Reinforce earlier insight: small effects can be large at scale.
+  - Encourage students to connect: % change → number of users → business value.
 
 💬 **Suggested In-Class Prompts**
 

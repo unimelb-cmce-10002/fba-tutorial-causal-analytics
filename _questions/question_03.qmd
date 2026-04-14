@@ -71,24 +71,24 @@ Students should:
 ✅ **Core Concepts to Highlight**
 
 - **Event-level vs. user-level data:**  
-  Each row represents an action in time, not a person. This introduces sequence, timing, and frequency — enabling behavioural analysis (e.g., funnel progression).
+  - Each row represents an action in time, not a person. This introduces sequence, timing, and frequency — enabling behavioural analysis (e.g., funnel progression).
 
 - **Combining multiple data sources:**  
-  Large-scale behavioural data are often split into multiple files for storage or collection reasons.  
-  Using `map_df()` generalizes to real-world pipelines where analysts need to stitch data together.
+  - Large-scale behavioural data are often split into multiple files for storage or collection reasons.  
+  - Using `map_df()` generalizes to real-world pipelines where analysts need to stitch data together.
 
 - **Duplicates and data integrity:**  
-  Duplicate events inflate counts and distort metrics like completion rates or average steps.  
-  Always verify and clean before aggregation.
+  - Duplicate events inflate counts and distort metrics like completion rates or average steps.  
+  - Always verify and clean before aggregation.
 
 - **Linking behaviour to treatment:**
-  Event data alone does not tell us whether a user was in Control or Test.
-  Joining web logs to treatment assignment allows later comparisons of behaviour across variations.
-  Restricting to valid treatment assignments ensures that only usable experimental observations are analysed.
+  - Event data alone does not tell us whether a user was in Control or Test.
+  - Joining web logs to treatment assignment allows later comparisons of behaviour across variations.
+  - Restricting to valid treatment assignments ensures that only usable experimental observations are analysed.
 
 - **Data preparation as part of causal analysis:**
-  These are not merely technical housekeeping steps.
-  They are part of making sure that later comparisons are meaningful and credible.
+  - These are not merely technical housekeeping steps.
+  - They are part of making sure that later comparisons are meaningful and credible.
 
 💬 **Suggested In-Class Prompts**
 
@@ -96,7 +96,7 @@ Students should:
 - “What could happen if duplicate events weren’t removed?”  
 - “What are the trade-offs between `inner_join()` and `left_join()` here?”  
 - “If a large share of users disappears after joining, what would that tell you about data quality?”  
-- “How does this step prepare us for measuring completion or other behaviour”
+- “How does this step prepare us for measuring completion or other behaviour?”
 
 📌 **Common Misunderstandings**
 

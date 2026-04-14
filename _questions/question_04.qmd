@@ -123,29 +123,29 @@ Students should:
 ✅ **Core Concepts to Highlight**
 
 - **Event → outcome:**
-  Web log data record actions, not outcomes.
-  Aggregation is required to define whether a user completed the funnel.
-  `any()` detects whether completion occurred at least once.
+  - Web log data record actions, not outcomes.
+  - Aggregation is required to define whether a user completed the funnel.
+  - `any()` detects whether completion occurred at least once.
 
 - **Measurement and communication:**
-  Completion rates summarise performance across users.
-  Group-level summaries enable comparison between Control and Test.
-  Simple visuals communicate differences more clearly than tables.
+  - Completion rates summarise performance across users.
+  - Group-level summaries enable comparison between Control and Test.
+  - Simple visuals communicate differences more clearly than tables.
 
 - **Units of comparison:**
-  Percentage points measure absolute differences in rates.
-  Percent change measures relative improvement.
-  In product and business settings, percentage points are the default.
-  If students use `lag()`, they must order the rows first so the comparison is meaningful.
+  - Percentage points measure absolute differences in rates.
+  - Percent change measures relative improvement.
+  - In product and business settings, percentage points are the default.
+  - If students use `lag()`, they must order the rows first so the comparison is meaningful.
 
 - **Effect size (statistical interpretation):**
-  Dividing by the standard deviation expresses the effect in SD units.
-  This provides a scale-free measure of magnitude.
-  Typical online experiments produce small effects (≈ 0.02–0.10 SD).
+  - Dividing by the standard deviation expresses the effect in SD units.
+  - This provides a scale-free measure of magnitude.
+  - Typical online experiments produce small effects (≈ 0.02–0.10 SD).
 
 - **Economic significance (business interpretation):**
-  Small statistical effects can still be valuable at scale.
-  A back-of-the-envelope calculation connects to percentage-point changes to economic value
+  - Small statistical effects can still be valuable at scale.
+  - A back-of-the-envelope calculation connects to percentage-point changes to economic value.
 
 💬 **Suggested In-Class Prompts**
 

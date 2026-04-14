@@ -89,22 +89,22 @@ Students should:
 ✅ **Core Concepts to Highlight**
 
 - **Data integration:**  
-  Experiments often require merging multiple datasets (user characteristics + treatment allocation).  
-  Clean joins are critical for ensuring every observation has complete information.
+  - Experiments often require merging multiple datasets (user characteristics + treatment allocation).  
+  - Clean joins are critical for ensuring every observation has complete information.
 
 - **Uniqueness of identifiers:**  
-  Each client ID should appear only once per dataset; duplicates threaten the logic of random assignment.
+  - Each client ID should appear only once per dataset; duplicates threaten the logic of random assignment.
 
 - **Random assignment and balance:**  
-  If assignment worked, demographic characteristics should be evenly distributed across variations.  
-  Balance gives confidence that outcome differences later reflect the experimental change.
+  - If assignment worked, demographic characteristics should be evenly distributed across variations.  
+  - Balance gives confidence that outcome differences later reflect the experimental change.
 
 - **Interpreting balance tables:**  
-  Nearly identical means or proportions across groups indicate success.  
-  Minor random variation is expected; systematic gaps signal implementation issues.
+  - Nearly identical means or proportions across groups indicate success.  
+  - Minor random variation is expected; systematic gaps signal implementation issues.
 
 - **Why balance matters first:**  
-  Establishing comparability before outcome analysis preserves causal credibility.
+  - Establishing comparability before outcome analysis preserves causal credibility.
 
 💬 **Suggested In-Class Prompts**
 
