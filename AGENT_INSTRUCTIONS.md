@@ -2,6 +2,13 @@
 
 Work as an editor of an existing teaching repository.
 
+# Session Start
+
+At the start of each session:
+
+- Read `README.md`, `CONSTRAINTS.md`, and `progress.md` before making changes.
+- Use these to understand the current task and constraints.
+
 ## Approach
 
 - Read the relevant file before making changes.
@@ -28,3 +35,12 @@ Work as an editor of an existing teaching repository.
 - If the change affects pedagogy or analytical content.
 - If it touches shared structure, rendering, or build logic.
 - If there is risk of interfering with concurrent user edits.
+
+## Session End
+
+At the end of each session:
+
+- Update `progress.md` with:
+  - what was done
+  - what remains
+  - the next recommended step
