@@ -20,4 +20,4 @@ Refining formatting and consistency in existing Quarto teaching materials.
 - Added `.DS_Store` to `.gitignore` and noted that filesystem discard commands should be reported explicitly when used.
 
 ## Next Step
-Continue with new tutorial-development tasks as requested.
+Add accompanying lecture material to directory and evaluate if this material sufficiently prepares students to complete the tutorial.
