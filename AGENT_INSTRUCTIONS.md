@@ -29,6 +29,7 @@ At the start of each session:
 - State which file is being edited and why.
 - Reference specific lines where relevant.
 - Summarise changes briefly after editing.
+- If I discard files outside git history, explicitly report the shell command used.
 
 ## When to Pause
 
