@@ -16,6 +16,7 @@ Refining formatting and consistency in existing Quarto teaching materials.
 - Standardised question, solution, and teaching-guide formatting across `_questions/question_01.qmd` to `_questions/question_06.qmd`.
 - Corrected minor typos and wording issues in the introduction and question files without changing content or sequence.
 - Tightened code scaffolds and prompt wording in Exercises 2 to 4 so they align more closely with the worked solutions.
+- Drafted four in-class check question sets in `in_class_check_questions/`, then rebalanced option order so correct answers are evenly distributed across A to D.
 
 ## Next Step
-Review any remaining repo-level workflow issues, such as portability warnings in `make_students.sh`.
+Review whether the new in-class check sets need any final style or wording adjustments before broader reuse.

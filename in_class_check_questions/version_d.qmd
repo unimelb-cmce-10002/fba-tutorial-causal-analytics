@@ -1,0 +1,122 @@
+---
+title: "Tutorial 10 In-Class Check - Version D"
+format:
+  html:
+    embed-resources: true
+---
+
+## Instructions
+
+Answer all five questions.
+
+Select the best answer in each case.
+
+### Question 1
+
+What is the best interpretation of the word *funnel* in this tutorial?
+
+A. A sequence of steps through which users move, with some continuing and others dropping out.
+
+B. A pricing strategy used to segment customers.
+
+C. A method for cleaning missing values from experimental data.
+
+D. A type of chart used only for demographics.
+
+### Question 2
+
+Consider the code below:
+
+```{r}
+#| eval: false
+demogs <- 
+    demogs |>
+    inner_join(treatment, join_by(client_id))
+```
+
+What does this join accomplish?
+
+A. It removes all clients who were assigned to Control.
+
+B. It adds treatment-assignment information to the demographic data using the common client identifier.
+
+C. It summarises the demographic data into one row per treatment.
+
+D. It automatically tests for balance across groups.
+
+### Question 3
+
+Suppose a student says: "If completion is higher in the Test group, the new design must be better in every respect."
+
+What is the best response?
+
+A. Correct, because completion is the only outcome that matters.
+
+B. Correct, because random assignment rules out all possible trade-offs.
+
+C. Incorrect, because a higher completion rate could still mask friction or effort elsewhere in the process.
+
+D. Incorrect, because experiments cannot measure completion rates.
+
+### Question 4
+
+Which code is most appropriate for keeping only rows with non-missing treatment labels after joining web log data?
+
+A.
+
+```{r}
+#| eval: false
+drop_na(variation)
+```
+
+B.
+
+```{r}
+#| eval: false
+geom_bar(variation)
+```
+
+C.
+
+```{r}
+#| eval: false
+facet_wrap(~ variation)
+```
+
+D.
+
+```{r}
+#| eval: false
+labs(variation)
+```
+
+### Question 5
+
+Why is event-level data especially useful for analysing user behaviour in a sign-up process?
+
+A. It ensures that every client appears exactly once.
+
+B. It allows us to reconstruct the sequence of actions users take within the process.
+
+C. It automatically estimates the causal effect of treatment.
+
+D. It removes the need for treatment assignment data.
+
+::: {.callout-tip collapse="true"}
+## Solution Key
+
+1. **A**
+   A funnel is a behavioural sequence of steps, where users either continue or drop out as they move through the process.
+
+2. **B**
+   The join merges treatment information into the demographic dataset using `client_id` as the shared key.
+
+3. **C**
+   Completion is important, but it does not by itself reveal whether users faced more friction or effort inside the process.
+
+4. **A**
+   `drop_na(variation)` keeps only observations with a usable treatment label.
+
+5. **B**
+   Because each action is recorded separately, event-level data let us study progression, drop-off, and other within-process behaviour.
+:::

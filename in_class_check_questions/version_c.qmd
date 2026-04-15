@@ -1,0 +1,100 @@
+---
+title: "Tutorial 10 In-Class Check - Version C"
+format:
+  html:
+    embed-resources: true
+---
+
+## Instructions
+
+Answer all five questions.
+
+Select the best answer in each case.
+
+### Question 1
+
+Which outcome best reflects success from the customer's perspective?
+
+A. The process is quick, intuitive, and introduces little friction.
+
+B. The treatment effect is statistically significant.
+
+C. The company collects more rows of data.
+
+D. The control group is smaller than the test group.
+
+### Question 2
+
+Which statement best describes the difference between user-level and event-level data?
+
+A. User-level data have one row per treatment group, while event-level data have one row per experiment.
+
+B. User-level data have one row per client, while event-level data can contain multiple rows per client.
+
+C. User-level data always contain missing values, while event-level data do not.
+
+D. User-level data are only used for visualisation, while event-level data are only used for experiments.
+
+### Question 3
+
+A student writes:
+
+```{r}
+#| eval: false
+weblog_clean <- 
+    weblog |> 
+    distinct()
+```
+
+What is the main purpose of `distinct()` here?
+
+A. To create a treatment indicator.
+
+B. To remove exact duplicate events from the web log data.
+
+C. To sort the data by `client_id`.
+
+D. To summarise the data to one row per user.
+
+### Question 4
+
+Why do we restrict the web log data to users with valid treatment assignments before comparing behaviour?
+
+A. Because event-level data must always have the same number of rows as demographic data.
+
+B. Because `drop_na()` automatically creates a balanced experiment.
+
+C. Because behaviour can only be analysed for users who can be placed meaningfully into Control or Test.
+
+D. Because users without treatment labels must have dropped out of the funnel.
+
+### Question 5
+
+Which statement best explains why balance checks come before outcome analysis?
+
+A. They prove that the treatment effect is economically large.
+
+B. They replace the need to analyse completion outcomes.
+
+C. They help verify that treatment and control groups were comparable before outcomes are compared.
+
+D. They guarantee that the sample contains no missing values.
+
+::: {.callout-tip collapse="true"}
+## Solution Key
+
+1. **A**
+   From the customer's perspective, success is about a clear, low-friction experience rather than just the firm's conversion outcome.
+
+2. **B**
+   User-level data typically have one row per client, while event-level data can have many rows per client because actions are recorded over time.
+
+3. **B**
+   `distinct()` removes exact duplicate rows so the same event is not counted more than once.
+
+4. **C**
+   To compare behaviour across groups, each observation must belong to a usable treatment category.
+
+5. **C**
+   Balance checks support credible causal interpretation by checking whether the groups look similar before outcomes are examined.
+:::
