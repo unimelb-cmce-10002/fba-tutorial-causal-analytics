@@ -1,7 +1,7 @@
 # Progress
 
 ## Current Task
-Refining formatting and consistency in existing Quarto teaching materials.
+Reviewing whether the available lecture and reading materials sufficiently prepare students for Tutorial 10.
 
 ## Working Pattern
 - Inspect file
@@ -18,6 +18,11 @@ Refining formatting and consistency in existing Quarto teaching materials.
 - Tightened code scaffolds and prompt wording in Exercises 2 to 4 so they align more closely with the worked solutions.
 - Drafted four in-class check question sets in `in_class_check_questions/`, then rebalanced option order so correct answers are evenly distributed across A to D.
 - Added `.DS_Store` to `.gitignore` and noted that filesystem discard commands should be reported explicitly when used.
+- Downloaded the Chapter 9 lecture notes on causal analytics into `lecture_notes/causal_analytics.html`.
+- Reviewed the causal analytics lecture notes and mapped their coverage against Tutorial 10.
+- Reviewed the prerequisite chapters on data wrangling and shaping/combining data.
+- Assessed tutorial readiness given the lecture notes and prerequisite readings; concluded that students are broadly prepared, with implementation-level gaps that can be bridged in class by teaching assistants.
 
 ## Next Step
-Add accompanying lecture material to directory and evaluate if this material sufficiently prepares students to complete the tutorial.
+- Read lecture notes for typos, clarity, formatting
+- Finalize and output teaching materials for delivery and distribution to teaching team: tutorial questions for textbook, revised lecture notes for textbook (if applicable), setup lecture and tutorial workspaces on Posit, teaching guide
