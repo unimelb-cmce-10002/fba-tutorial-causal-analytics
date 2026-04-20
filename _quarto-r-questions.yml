@@ -1,10 +1,10 @@
 project:
   render:
     - tutorial.qmd
-title: 'Tutorial 10: Causal Analytics & Improving User Sign Up Experiences'
+title: 'Tutorial Week 9: Causal Analytics & Improving User Sign Up Experiences'
 execute:
   eval: false
 format:
   html:
-    output-file: "tutorial-10-questions"
+    output-file: "tutorial-week9-questions"
     output-ext:  "html"
