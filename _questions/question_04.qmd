@@ -22,7 +22,7 @@ completion_by_visitor <-
 
 What does `any()` do here, and why must we aggregate from event-level data to client-level outcomes?
 
-**(b)** We want to see if the new sign-up process is more effective. And so, we first need to summarise completion rates by treatment.
+**(b)** We want to see if the new sign-up process is more effective. Therefore, we first need to summarise completion rates by treatment.
 
 ```{r}
 #| eval: false
@@ -78,7 +78,7 @@ completion_summary |>
 
 Because the Control row has no previous row, the `lag()` result for Control will be missing. Report the Test row's difference.
 
-By how many percentage points did the change in sign up process influence completions? What is the difference in percentage points and percent change, and why do we typically report percentage points in this setting?
+By how many percentage points did the change in sign-up process influence completions? What is the difference in percentage points and percent change, and why do we typically report percentage points in this setting?
 
 **(e)** Complete the code below to express the effect size in standard deviation units.
 

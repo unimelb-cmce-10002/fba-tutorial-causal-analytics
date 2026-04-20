@@ -3,8 +3,9 @@
 
 It’s time to look at the data from the experiment.
 
-You have two datasets:  
-- `ab_test_demographics`: information about each client.  
+You have two datasets:
+
+- `ab_test_demographics`: information about each client.
 - `ab_test_experiment_clients`: information on which clients were assigned to the **Control** or **Test** variation.
 
 Our goal is to merge these datasets and check whether allocation to treatment and control groups is balanced across demographic characteristics.
@@ -164,8 +165,8 @@ A join combines the demographic data with the treatment assignment data using th
 
 This is necessary because:
 
--  The demographic dataset contains user characteristics
--  The treatment dataset contains variation assignment
+- The demographic dataset contains user characteristics
+- The treatment dataset contains variation assignment
 
 We need both in the same dataset before we can compare treatment groups (and so assess balance).
 
@@ -206,7 +207,7 @@ demogs |>
 We check balance first because it verifies that the experimental design was implemented credibly.
 The summary table (`st()`) should show nearly identical means and proportions across groups. Small random differences are expected, but no systematic gaps should appear.
 
-If Control and Test differ systematically at baseline, then later differences in completion or behaviour may not be caused by the new sign-up flow. And so, checking balance first protects the credibility of the causal comparison.
+If Control and Test differ systematically at baseline, then later differences in completion or behaviour may not be caused by the new sign-up flow. Checking balance first protects the credibility of the causal comparison.
 
 
 

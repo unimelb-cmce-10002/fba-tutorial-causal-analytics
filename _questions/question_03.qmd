@@ -1,4 +1,4 @@
-<!-- question-type: inclass -->
+<!-- question-type: prepare -->
 ### Exercise 3: Working with Web Log Data
 
 Now that you’ve checked that users were randomly assigned to the Test and Control groups, it's time to examine what they actually did inside the experiment. 

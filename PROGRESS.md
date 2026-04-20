@@ -1,7 +1,7 @@
 # Progress
 
 ## Current Task
-Reviewing whether the available lecture and reading materials sufficiently prepare students for Tutorial 10.
+Final review of the rendered Tutorial 10 questions, solutions, and teaching guide for typos and formatting issues.
 
 ## Working Pattern
 - Inspect file
@@ -22,7 +22,11 @@ Reviewing whether the available lecture and reading materials sufficiently prepa
 - Reviewed the causal analytics lecture notes and mapped their coverage against Tutorial 10.
 - Reviewed the prerequisite chapters on data wrangling and shaping/combining data.
 - Assessed tutorial readiness given the lecture notes and prerequisite readings; concluded that students are broadly prepared, with implementation-level gaps that can be bridged in class by teaching assistants.
+- Reviewed the rendered Tutorial 10 questions, solutions, and teaching guide.
+- Corrected minor typos, punctuation, grammar, and Markdown formatting issues in the learning goals and Exercises 1, 2, 4, 5, and 6.
+- Confirmed Exercise 3 is now classified as a prepare exercise, matching its placement in the rendered tutorial.
+- Re-rendered the tutorial questions, solutions, and teaching guide successfully.
 
 ## Next Step
-- Read lecture notes for typos, clarity, formatting
-- Finalize and output teaching materials for delivery and distribution to teaching team: tutorial questions for textbook, revised lecture notes for textbook (if applicable), setup lecture and tutorial workspaces on Posit, teaching guide
+- Review the `make_students.sh` portability issue on macOS/BSD `grep`, which does not support `grep -P`.
+- Finalize and output teaching materials for delivery and distribution to teaching team: tutorial questions for textbook, revised lecture notes for textbook (if applicable), setup lecture and tutorial workspaces on Posit, teaching guide.

@@ -37,7 +37,7 @@ Students should:
 - Explain why aggregate metrics (like completion) can mask underlying patterns.
 - Connect behavioural insights to actionable business decisions.
 
-✅   **Core Concepts to Highlight**
+✅ **Core Concepts to Highlight**
 
 - **From outcomes to process:**
   - Completion is a final outcome.
@@ -93,21 +93,21 @@ Solution
 **(a)**
 
 “Mid-funnel outcomes” refer to the intermediate steps users take before reaching the final confirmation — such as start → step 1 → step 2 → confirm.
-Instead of only asking who finished (and so summarise behaviour into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
+Instead of only asking who finished (which summarises behaviour into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
 
 **(b)**
 
 Completion rates compress all behaviour into one number.
 
 A process could improve completion overall, but still introduce friction at specific steps. 
-Without mid-funnel analysis, we cannot see where users struggle or whether improvements come at the cost of a worse experience elsewhere
+Without mid-funnel analysis, we cannot see where users struggle or whether improvements come at the cost of a worse experience elsewhere.
 
 **(c)**
 
 Because each user generates multiple rows of data, we can reconstruct their path through the funnel and analyse behaviour at each stage.
 Possible intuitive approaches (that are feasible with this data):
 
-- Step-level conversion chart: show the percentage of users moving from each step to the next (e.g., 100 % start → 90 % step 1 → 75 % step 2 → 69 % confirm).
+- Step-level conversion chart: show the percentage of users moving from each step to the next (e.g., 100% start → 90% step 1 → 75% step 2 → 69% confirm).
 - Drop-off table or waterfall plot: visualise where the biggest losses occur.
 - “Go-back” rate: count how often users return to earlier steps as a proxy for confusion or friction.
 - Average steps completed: compare how far users get, on average, before quitting.

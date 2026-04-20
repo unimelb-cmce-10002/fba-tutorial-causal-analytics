@@ -124,7 +124,7 @@ Solution
 - Completion vs. friction: Does the new flow increase completion at the cost of more effort?
 - Speed vs. accuracy: Are users completing quickly but providing less useful information?
 - Short-term vs. long-term engagement: Do users continue using the feature after signing up?
-- Experience vs. conversion: Does higher completion come with worse perceived quality
+- Experience vs. conversion: Does higher completion come with worse perceived quality.
 - Company success means more users complete the process and access the feature, supporting engagement and revenue. Customer success means the process is quick, intuitive, and does not introduce frustration or uncertainty.
 
 **(c)**

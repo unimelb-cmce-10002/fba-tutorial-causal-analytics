@@ -34,7 +34,7 @@ Summarise in 3-4 sentences:
 ### Key Insights
 
 - Up to **3 bullets** describing what the data and analysis show.  
-- Use clear, declarative statements to describe what the data show 
+- Use clear, declarative statements to describe what the data show.
 - Report results in percentage points
 - Avoid technical language
 
