@@ -1,51 +1,22 @@
 <!-- question-type: inclass -->
-### Exercise 6: Comparing Outcomes Across Variations
+### Exercise 6: Understanding Mid-Funnel Outcomes
 
-We've now calculated completion rates for each variation.  
-In this exercise, you’ll quantify how much higher (or lower) the completion rate was in the Test variation compared to the Control group — and reflect on whether the difference is meaningful.
+After reviewing your executive brief, one manager comments:
 
-**(a)** Compute the **difference in percentage points** between the Test and Control variations.
+> “This tells me how many users finished the sign-up flow — but I want to understand what happened in the middle.  
+> Where exactly are we gaining or losing customers?”
 
-```{r}
-#| eval: false
-completion_summary |> 
-    summarise(
-        diff_pct_points = YOUR_CODE
-    )
-```
+**(a)** What does the manager mean by “mid-funnel outcomes”?
+How are these different from overall completion rates?
 
-**(b)** Compute the percent change in completion relative to the Control group.
+**(b)** Why might focusing only on completions hide important insights about customer experience or friction points?
 
-```{r}
-#| eval: false
-completion_summary |> 
-    mutate(
-        YOUR_CODE
-    )
-```
+**(c)** Using the same event-level data, how could you explore mid-funnel performance? Describe two or three possible approaches (e.g. visual summaries or simple metrics).
 
-**(c)**  You already have the difference in completion rates from part (a).  
-Let’s use that value directly and divide it by the standard deviation of completion in the Control group to see how large the effect is in practical terms.
+How does the structure of event-level data (multiple rows per user) enable this type of analysis?
 
-```{r}
-#| eval: false
-# pull the numeric difference from part (a)
-diff_rate <- completion_diff |> pull(diff_pct_points) / 100
+**(d)** What kinds of business questions could mid-funnel analysis help answer that top-line completion rates cannot?
 
-# compute Control group’s SD
-control_sd <- 
-    completion_by_visitor |> 
-    YOUR_CODE|> 
-    YOUR_CODE(sd_rate = YOUR_CODE) |> 
-    pull(sd_rate)
-
-# difference in standard-deviation units of the control group
-diff_sd_units <- diff_rate / control_sd
-print(diff_sd_units)
-
-```
-
-**(d)** Would you consider this a small, moderate, or large effect in a typical online experiment? Explain Your answer.
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -58,68 +29,48 @@ Teaching Note
 
 ::: {.teaching-block-body}
 
-🎯 **Learning Objective**  
-Students should:  
-- Learn how to compute and interpret absolute (percentage-point) and relative (% change) differences between experimental groups.  
-- Understand what it means to express an effect size in standard-deviation units.  
-- Begin to reason about *practical significance* (is it large enough to matter?) rather than statistical significance.
+🎯 **Learning Objective** 
+Students should:
 
+- Understand how funnel analysis decomposes overall outcomes into intermediate steps.
+- Recognise the value of event-level data for analysing user behaviour within a process.
+- Explain why aggregate metrics (like completion) can mask underlying patterns.
+- Connect behavioural insights to actionable business decisions.
 
 ✅ **Core Concepts to Highlight**
 
-- **Percentage points vs. percent change:**  
-  Reinforce the distinction — 3.7 *percentage points* ≠ 3.7 *percent increase*.  
-  Percentage points measure **absolute change**, while percent change measures **relative improvement**.
+- **From outcomes to process:**
+  - Completion is a final outcome.
+  - Funnels reveal the path taken to reach (or fail to reach) that outcome.
 
-- **Practical significance:**  
-  Statistical tests aren’t used here, but we can still ask: *Is the effect meaningful?*  
-  A 3–4 p.p. lift might sound small but can be impactful at scale (e.g., in millions of sign-ups).
+- **Event-level data enables behavioural insight:**
+  - Multiple rows per user capture sequences of actions.
+  - This allows analysis of progression, drop-off, looping, or hesitation.
 
-- **Standard deviation interpretation:**  
-  Expressing differences in SD units (≈ 0.08) offers a benchmark for magnitude:  
-  - 0.1 SD ≈ small, 0.3 SD ≈ moderate, 0.5 SD ≈ large (rough guide).  
-  This introduces the idea of *effect size* as a generalizable measure.
+- **Where vs how many:**
+  - Completion answers: how many finished?
+  - Funnel analysis answers: where and why do users drop off?
 
-- **Binary outcome variance:**  
-  Highlight that SD for completion = √(p × (1 − p)) and why it matters when comparing scales of effects across contexts.
+- **Diagnosing friction:**
+  - Mid-funnel metrics identify confusing steps, unnecessary complexity, and points of abandonment.
 
-### What Counts as a Big Effect?
+- **Linking to decisions:**
+  - The goal is not description; it is intervention.
+  - Mid-funnel insights point directly to UX improvements, prioritisation of fixes, and follow-up experiments.
 
-| Setting | Typical Range | Notes |
-|----------|----------------|-------|
-| **Online field experiments (A/B tests)** | 1–5 p.p. (≈ 0.02–0.10 SD) | Small by statistical standards but **commercially meaningful** at scale. |
-| **Consumer-behaviour / lab experiments** | 5–20 p.p. (≈ 0.3–0.6 SD) | Larger effects due to **controlled environments** and more salient manipulations. |
+💬 **Suggested In-Class Prompts** (if needed)
 
-**Why field effects look smaller:**
-- High environmental noise  
-- Real users, real distractions  
-- Behavioural (not attitudinal) outcomes  
-
-**Why lab effects look larger:**
-- Controlled setting, short-term tasks  
-- Lower variance and stronger stimuli  
-
-> A 3.7 p.p. lift (≈ 0.08 SD) is **typical for a good online experiment** — modest statistically, substantial operationally.
-
-💬 **Suggested In-Class Prompts**
-
-- “Why do we prefer to talk about *percentage points* instead of just percentages here?”  
-- “Does a 3.7 p.p. difference sound small or large to you? What if this site has a million monthly visitors?”  
-- “What’s the intuition behind dividing by the standard deviation?”  
-- “Can you think of a context where a small statistical effect might have a large business impact?”
+- “Can two funnels have the same completion rate but very different user experiences?”
+- “Where would you look first if completion dropped?”
+- “What behaviour would indicate confusion rather than disengagement?”
+- “How would a product manager use this information?”
 
 📌 **Common Misunderstandings**
 
-- Confusing “percent change” and “percentage points.”  
-- Assuming that a small SD effect automatically means “not important.”  
-- Treating a descriptive difference as proof of causality (that’s the next step).  
-- Thinking that SD units are only for continuous variables — they apply here because `completed` is coded 0/1.
-
-🧠 **Instructor Notes**
-
-- Emphasize *scale and impact*: in digital experiments, small average effects can compound massively.  
-- Keep computation light — the conceptual takeaway is what matters.  
-- Encourage discussion about what counts as a “big effect” in different industries (marketing, fintech, health).
+- Treating funnels as just a visual rather than a behavioural model
+- Thinking completion alone is sufficient to evaluate performance
+- Forgetting that users may revisit or repeat steps
+- Describing patterns without linking them to decisions
 
 :::
 
@@ -139,60 +90,38 @@ Solution
 
 ::: {.solution-block-body}
 
-**(a)** 
-```{r}
-completion_diff <- 
-    completion_summary |> 
-    summarise(
-        diff_pct_points = diff(pct)
-    )
+**(a)**
 
-completion_diff
-```
-
-`diff(pct)` subtracts the first value (Control) from the second (Test).
-
-Example output: 3.7, meaning the Test group’s completion rate is 3.7 percentage points higher.
-
-This gives an absolute difference in the same units as the rates (percentage points, not percent).
+“Mid-funnel outcomes” refer to the intermediate steps users take before reaching the final confirmation — such as start → step 1 → step 2 → confirm.
+Instead of only asking who finished (which summarises behaviour into a single final outcome), the manager wants to know where users drop off or loop back inside the process.
 
 **(b)**
-```{r}
-completion_summary |> 
-    mutate(
-        pct_change = (pct - first(pct)) / first(pct) * 100
-    )
-```
 
-Calculates the relative increase over the Control baseline.
+Completion rates compress all behaviour into one number.
 
-Example:
+A process could improve completion overall, but still introduce friction at specific steps. 
+Without mid-funnel analysis, we cannot see where users struggle or whether improvements come at the cost of a worse experience elsewhere.
 
-(69.3−65.6)/65.6×100≈5.6%
+**(c)**
 
-Interpretation: The Test variation improved completions by roughly 5.6 percent relative to baseline.
+Because each user generates multiple rows of data, we can reconstruct their path through the funnel and analyse behaviour at each stage.
+Possible intuitive approaches (that are feasible with this data):
 
-**(c)** 
-```{r}
-# pull the numeric difference from part (a)
-diff_rate <- completion_diff |> pull(diff_pct_points) / 100
+- Step-level conversion chart: show the percentage of users moving from each step to the next (e.g., 100% start → 90% step 1 → 75% step 2 → 69% confirm).
+- Drop-off table or waterfall plot: visualise where the biggest losses occur.
+- “Go-back” rate: count how often users return to earlier steps as a proxy for confusion or friction.
+- Average steps completed: compare how far users get, on average, before quitting.
 
-# compute Control group’s SD
-control_sd <- 
-    completion_by_visitor |> 
-    filter(variation == "Control") |> 
-    summarise(sd_rate = sd(completed)) |> 
-    pull(sd_rate)
+**(d)** 
 
-# difference in SD units
-diff_sd_units <- diff_rate / control_sd
-print(diff_sd_units)
-```
+Mid-funnel analysis helps answer questions such as:
 
-**(d)**
-The Test variation increased completions by 3.7 percentage points, or about 5.6 percent relative to baseline.
+- Which specific steps are causing users to drop off?
+- Does the new design improve early steps but worsen later ones?
+- Are certain user groups struggling at particular stages?
+- Where should the team focus improvements for the greatest impact?
 
-In standard-deviation terms (~0.08 SDs), the effect is typical for A/B tests in digital environments, where even modest improvements can be valuable at scale.
+These insights cannot be obtained from completion rates alone, because they require understanding behaviour within the process.
 
 :::
 

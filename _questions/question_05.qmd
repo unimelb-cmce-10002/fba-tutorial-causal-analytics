@@ -1,59 +1,53 @@
 <!-- question-type: inclass -->
-### Exercise 5: Measuring Funnel Completion
+### Exercise 5: Communicating Experimental Insights
 
-Now that we've linked event-level data with the experimental information, let's create our first outcome measure — **funnel completion**.
+Now we need to translate your analytical results into a short executive brief written for a business audience.
 
-Each client goes through a series of process steps (for example, `start`, `step_1`, `step_2`, `confirm`).  
-A funnel *completion* occurs if the client reaches the final step, `"confirm"`.
+Your goal is to communicate *what was tested*, *what happened*, and *what the company should do next* — clearly and persuasively, without technical detail.
 
-**(a)** Compute a client-level indicator for whether each client completed the funnel by completing the code below.
+::: {.callout-warning}
+### Instructions
 
-```{r}
-#| eval: false
-completion_by_visitor <- 
-    YOUR_CODE |>
-    group_by(YOUR_CODE) |>
-    YOUR_CODE(
-        completed = any(YOUR_CODE == "confirm"),
-        .groups = "drop"
-    )
+**Length:** 400 words.  
+**Exhibit:** 1 table **or** figure.  
 
-```
+Write this as an **executive brief** to be read and understood by managers.
 
-**(b)** Summarise completion rates by treatment.
+- Bullets must be written as **full sentences**.  
+- Use the writing principles from *Write Like an Amazonian* — short, declarative sentences; clarity before style.  
+- **No visible code** in the brief.  
+- Do **not** produce new analysis, tables, or figures in this section — use the results already created in Exercise 4.  
+:::
 
-```{r}
-#| eval: false
-completion_summary <- 
-    YOUR_CODE |>
-    YOUR_CODE |>
-    summarise(
-        completes = YOUR_CODE,
-        total     = YOUR_CODE,
-        pct       = completes / total * 100,
-        .groups   = "drop"
-    )
+INSERT YOUR FIGURE OR TABLE HERE  
+*(For example: your completion-rate comparison chart or summary table from Exercise 4.)*
 
-```
+### Executive Summary
 
-**(c)** Create a simple visual to compare completion rates across the two variations. Use a bar chart to display the percentage of users who completed the funnel.
+Summarise in 3-4 sentences:
 
-```{r}
-#| eval: false
-completion_summary |> 
-    YOUR_CODE +
-    YOUR_CODE +
-    geom_text(aes(label = round(pct, 1)), vjust = -0.5) +
-    labs(
-        title = "Funnel Completion Rate by Variation",
-        x = "Variation",
-        y = "Completion Rate (%)"
-    ) +
-    theme_minimal() +
-    theme(legend.position = "none")
-```
+- The business problem
+- The intervention
+- The key result 
+- Why it matters (economic significance)
 
-**(d)** Interpret your findings. By how many percentage points did the change in sign up process influence completions?
+### Key Insights
+
+- Up to **3 bullets** describing what the data and analysis show.  
+- Use clear, declarative statements to describe what the data show.
+- Report results in percentage points
+- Avoid technical language
+
+### Business Implications
+
+- Up to **3 bullets** on why these findings matter for the organisation.  
+- Connect the analytics result back to strategic goals.
+
+### Recommended Actions
+
+- Up to **3 bullets** outlining clear, actionable next steps.  
+- Recommendations should be specific, realistic, and aligned with business priorities.
+
 
 <!-- BEGIN PROFILE:r-teaching-guide -->
 ::: {.content-visible when-profile="r-teaching-guide"}
@@ -66,45 +60,50 @@ Teaching Note
 
 ::: {.teaching-block-body}
 
-🎯 **Learning Objective**  
-Students should:  
-- Learn how to summarise event-level data into client-level outcomes.  
-- Understand how to calculate and interpret funnel completion rates across experimental groups.  
-- Recognize the importance of clear visual and numerical comparisons when communicating results.  
-- Begin linking descriptive differences to the logic of causal effects (without formal inference yet).
+🎯 **Learning Objective**
+
+Students should:
+
+- Translate analytical results into clear business communication
+- Distinguish between results, insights, and implications
+- Communicate magnitude using appropriate units (percentage points)
+- Connect analytical results to economic impact
 
 ✅ **Core Concepts to Highlight**
 
-- **Aggregation and granularity:**  
-  Explain how summarising event-level actions to the client level captures whether each user “succeeded” in completing the funnel.
+- **Data → decision:**
+  - Executives care about: what happened, why it matters, what to do next.
+  - Not how the analysis was done.
 
-- **Outcome definition:**  
-  The choice of “completion” as the outcome connects directly to the business question: *Did the new sign-up flow help more users finish?*
+- **Units and clarity:**
+  - Use percentage points, not percent change.
+  - Avoid statistical jargon.
+  - Prefer concrete, interpretable language.
 
-- **Descriptive comparison:**  
-  Computing and plotting completion rates is the first step toward evaluating impact — but these are still *descriptive statistics*, not causal claims.
+- **Structure discipline:**
+  - Summary → insight → implication → action.
+  - Each section serves a different purpose.
+  - Avoid repetition across sections.
 
-- **Percentage vs. percentage points:**  
-  A difference between 65.6 % and 69.3 % is **3.7 percentage points**, not “3.7 % improvement.”  
-  Reinforce this distinction — it’s critical for clean business communication.
-
-- **Visualization for stakeholders:**  
-  A simple bar chart makes the result accessible to non-technical audiences and aligns with how analytics teams typically communicate A/B test results.
+- **Scale and impact:**
+  - Reinforce earlier insight: small effects can be large at scale.
+  - Encourage students to connect: % change → number of users → business value.
 
 💬 **Suggested In-Class Prompts**
 
-- “Why do we calculate this at the *client* level instead of the *event* level?”  
-- “If we see a 3.7 percentage-point difference, is that large or small in this context?”  
-- “How might we explain this result to a product manager in one sentence?”  
-- “What are some reasons the Test group might outperform the Control beyond the design change itself?”  
+- “What separates a *data fact* from a *business insight*?”  
+- “How could you phrase this same result so that a non-analyst understands why it matters?”  
+- “If you were the VP of Product, which single line here would convince you to act?”  
+- “What verbs sound decisive and executive? (‘increased,’ ‘reduced,’ ‘enabled,’ ‘drove’).”  
+- “How might you reword a technical statement like ‘0.08 SD difference’ into something a manager actually remembers?”
 
 📌 **Common Misunderstandings**
 
-- Confusing *percentage points* (absolute difference) with *percent change* (relative difference).  
-- Forgetting that descriptive differences alone don’t confirm causality.  
-- Assuming visualizations replace numerical summaries rather than complement them.  
-- Interpreting the `any()` function incorrectly (thinking it counts events instead of checking existence).  
-- Ignoring potential data issues such as missing or duplicated user IDs when summarising.
+- Repeating numbers without interpretation
+- Using percent instead of percentage points
+- Including technical language (e.g. SD units)
+- Skipping implications
+- Writing vague recommendations
 
 
 :::
@@ -125,48 +124,12 @@ Solution
 
 ::: {.solution-block-body}
 
-**(a)** Compute a client-level indicator for whether each client completed the funnel.
+There is no unique correct answer, but the following is a strong example of how to answer this question.
+
+### Executive Summary 
 
 ```{r}
-completion_by_visitor <- 
-    weblog_clean |>
-    group_by(variation, client_id) |>
-    summarise(
-        completed = any(process_step == "confirm"),
-        .groups = "drop"
-    )
-```
-
-The `any(process_step == "confirm")` condition checks whether a client ever reached the "confirm" step.
-
-The grouping ensures this is calculated per client and per variation. The latter simply keeps the treatment allocation attached to the summary data
-
-The resulting dataset has one row per client, indicating whether they completed (TRUE) or not (FALSE).
-
-**(b)** Summarise completion rates by treatment.
-
-```{r}
-completion_summary <- 
-    completion_by_visitor |>
-    group_by(variation) |>
-    summarise(
-        completes = sum(completed),
-        total     = n(),
-        pct       = completes / total * 100,
-        .groups   = "drop"
-    )
-```
-
-`sum(completed)` counts how many clients completed the funnel.
-
-`n()` counts how many total clients were in that variation.
-
-Dividing gives a percentage completion rate (pct) for each variation.
-
-This summary table provides the key comparison for the experiment.
-
-**(c)** 
-```{r}
+#| echo: false
 completion_summary |> 
     ggplot(aes(x = variation, y = pct, fill = variation)) +
     geom_col() +
@@ -180,17 +143,29 @@ completion_summary |>
     theme(legend.position = "none")
 ```
 
-The plot visually compares completion rates across variations.
+We tested a new sign-up flow required for users to access a personalised insights dashboard. 
+We randomly assigned users to the existing (Control) or redesigned (Test) flow. 
+The new flow increased completion rates from 65.6% to 69.3%, a 3.7 percentage-point improvement. 
+While modest, this uplift is meaningful at scale and supports adopting the new design.
 
-Bars make it easy to see which variation performs better and by how much.
+### Key Insights
 
-Adding text labels helps decision-makers read exact percentages directly from the chart.
+- Completion rates were 3.7 percentage points higher in the Test group than in Control.
+- This represents a consistent, real-world improvement typical of successful online experiments.
+- The results suggest the redesigned flow reduces friction and improves user progression through the funnel.
 
-**(d) ** Interpretation
+### Business Implications
 
-The difference in completion rates (in percentage points) represents the estimated effect of the new sign-up flow.
+- Higher completion enables more users to access the dashboard, increasing engagement and product usage.
+- Even small improvements in conversion can generate large gains when applied across a large user base.
+- Improved user experience reduces the risk of drop-off during critical onboarding steps.
 
-Control = 65.6 and Test = 69.3%, then the Test version increased completions by 3.7 percentage points.
+### Recommended Actions
+
+- Roll out the new sign-up flow to all users.
+- Monitor downstream metrics (e.g. engagement, retention) to confirm sustained impact.
+- Conduct follow-up tests to identify which design elements drove the improvement.
+
 :::
 
 :::

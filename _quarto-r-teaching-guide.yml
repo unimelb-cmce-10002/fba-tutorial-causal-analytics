@@ -4,5 +4,5 @@ project:
 title: 'Teaching Guide: Causal Analytics & Improving User Sign Up Experiences'
 format:
   html:
-    output-file: "tutorial-10-teaching-guide"
+    output-file: "tutorial-week9-teaching-guide"
     output-ext:  "html"

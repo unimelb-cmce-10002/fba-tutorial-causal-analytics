@@ -3,8 +3,8 @@
 
 By the end of this tutorial, students should be able to:
 
--  Describe how experiments help evaluate product or design changes.  
+- Describe how experiments help evaluate product or design changes.  
 - Join and prepare experimental and event-level datasets to compute key outcomes such as funnel completion rates.  
--  Compare and interpret results across variations, expressing differences in both percentage points and relative terms, and evaluating whether they are meaningful in a business context.  
+- Compare and interpret results across variations, expressing differences in both percentage points and relative terms, and evaluating whether they are meaningful in a business context.  
 - Communicate analytic findings in clear, decision-oriented language suitable for a managerial audience, using one concise table or figure.
 :::

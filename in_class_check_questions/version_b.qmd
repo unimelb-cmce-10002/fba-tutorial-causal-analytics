@@ -1,0 +1,110 @@
+---
+title: "Tutorial 10 In-Class Check - Version B"
+format:
+  html:
+    embed-resources: true
+---
+
+## Instructions
+
+Answer all five questions.
+
+Select the best answer in each case.
+
+### Question 1
+
+Rather than run an experiment, the firm could have changed the sign-up flow for everyone and compared completion rates before and after the change.
+
+What is the main problem with this approach?
+
+A. Before-and-after comparisons always produce smaller effects than experiments.
+
+B. They make it impossible to calculate completion rates.
+
+C. Before-and-after comparisons cannot isolate the effect of the design change from other things that may also have changed over time.
+
+D. They remove the need for random assignment.
+
+### Question 2
+
+Why does random assignment matter in this setting?
+
+A. It ensures that treatment users are always more engaged than control users.
+
+B. It guarantees that the treatment effect will be positive.
+
+C. It removes all missing data from the sample.
+
+D. It helps make the groups comparable on average before outcomes are measured.
+
+### Question 3
+
+Consider the code below:
+
+```{r}
+#| eval: false
+demogs |> 
+    distinct(variation)
+```
+
+What is this step mainly checking?
+
+A. Whether `variation` contains the expected treatment labels and any missing values.
+
+B. Whether the dataset contains duplicate `client_id` values.
+
+C. Whether completion rates are higher in the Test group.
+
+D. Whether `variation` is a numeric variable.
+
+### Question 4
+
+A student combines two web log files using:
+
+```{r}
+#| eval: false
+weblog <- 
+    weblogs_files |> 
+    map_df(read_csv)
+```
+
+What does `map_df()` do here?
+
+A. It plots each dataset separately.
+
+B. It reads each file and combines the results into one data frame.
+
+C. It removes all duplicate rows automatically.
+
+D. It keeps only users in the Test group.
+
+### Question 5
+
+Why is it important to remove duplicate rows from the web log data before constructing outcomes?
+
+A. Duplicate rows make `read_csv()` fail.
+
+B. Duplicate rows guarantee that `inner_join()` returns an empty dataset.
+
+C. Duplicate rows can overstate user activity and distort later measures such as completion.
+
+D. Duplicate rows prevent `clean_names()` from working.
+
+::: {.callout-tip collapse="true"}
+## Solution Key
+
+1. **C**
+   A before-and-after comparison mixes the design change with any other time-varying factor, so it weakens causal interpretation.
+
+2. **D**
+   Random assignment aims to make treatment and control groups comparable on average before outcomes are observed.
+
+3. **A**
+   `distinct(variation)` checks what values appear in the treatment variable, including whether anything unexpected or missing is present.
+
+4. **B**
+   `map_df(read_csv)` applies `read_csv()` to each file and binds the outputs together into one dataset.
+
+5. **C**
+   Duplicate event rows can inflate counts and produce misleading outcome measures.
+:::
