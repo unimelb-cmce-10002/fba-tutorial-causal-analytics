@@ -22,7 +22,7 @@ Write this as an **executive brief** to be read and understood by managers.
 INSERT YOUR FIGURE OR TABLE HERE  
 *(For example: your completion-rate comparison chart or summary table from Exercise 4.)*
 
-### Executive Summary
+### Executive Summary {.unlisted}
 
 Summarise in 3-4 sentences:
 
@@ -31,19 +31,19 @@ Summarise in 3-4 sentences:
 - The key result 
 - Why it matters (economic significance)
 
-### Key Insights
+### Key Insights {.unlisted}
 
 - Up to **3 bullets** describing what the data and analysis show.  
 - Use clear, declarative statements to describe what the data show.
 - Report results in percentage points
 - Avoid technical language
 
-### Business Implications
+### Business Implications {.unlisted}
 
 - Up to **3 bullets** on why these findings matter for the organisation.  
 - Connect the analytics result back to strategic goals.
 
-### Recommended Actions
+### Recommended Actions {.unlisted}
 
 - Up to **3 bullets** outlining clear, actionable next steps.  
 - Recommendations should be specific, realistic, and aligned with business priorities.

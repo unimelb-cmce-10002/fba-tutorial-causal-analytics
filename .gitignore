@@ -9,3 +9,5 @@
 /.quarto/
 
 *_student.qmd
+
+**/*.quarto_ipynb
